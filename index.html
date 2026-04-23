@@ -17,9 +17,10 @@
       --coral:   #ff5e41;
       --amarillo:#ffc847;
       --azul:    #3a7bfd;
+      --morado:   #7c5cbf;
       --fondo:   #f2f0eb;
       --gris:    #888680;
-      --radio:   12px;
+      --radio:   14px;
     }
 
     /* ── Reset ── */
@@ -41,8 +42,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 2rem;
-      background: var(--darkteal);
+      padding: 1rem 2rem;
+      background: var(--negro);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -51,14 +52,13 @@
       font-size: 1.4rem;
       font-weight: 800;
       color: var(--teal);
-      letter-spacing: -0.03em;
       text-decoration: none;
     }
     .logo span { color: var(--blanco); }
     nav a.ig-btn {
       background: var(--teal);
-      color: var(--darkteal);
-      font-weight: 500;
+      color: var(--negro);
+      font-weight: 700;
       font-size: 0.875rem;
       padding: 0.5rem 1.1rem;
       border-radius: 100px;
@@ -67,91 +67,131 @@
     }
     nav a.ig-btn:hover { opacity: 0.85; }
 
+    
     /* ── HERO ── */
     .hero {
-      background: var(--darkteal);
+      background: linear-gradient(135deg, #1a0533 0%, #0d2a4a 50%, #0a3a2e 100%);
       color: var(--blanco);
-      padding: 5rem 2rem 4rem;
+      padding: 4rem 2rem 3rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,92,191,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(15,196,167,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-logo {
+      height: 100px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 4px 28px rgba(15,196,167,0.45));
+      position: relative;
+      z-index: 1;
     }
     .hero-tag {
       display: inline-block;
-      background: var(--teal);
-      color: var(--darkteal);
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--blanco);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 0.35rem 0.9rem;
+      padding: 0.35rem 1rem;
       border-radius: 100px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 1;
     }
     .hero h1 {
-      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      font-size: clamp(2rem, 6vw, 3.8rem);
       font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      max-width: 14ch;
-      margin: 0 auto 1.5rem;
+      line-height: 1.1;
+      max-width: 16ch;
+      margin: 0 auto 1.25rem;
+      position: relative;
+      z-index: 1;
     }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--teal);
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: #aaa8a2;
-      max-width: 480px;
+    .hero h1 em { font-style: normal; color: var(--teal); }
+    .hero h1 strong { font-style: normal; color: var(--amarillo); }
+    .hero > p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 460px;
       margin: 0 auto 2.5rem;
+      position: relative;
+      z-index: 1;
     }
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
     .btn-primary {
       background: var(--teal);
-      color: var(--darkteal);
-      font-weight: 500;
-      padding: 0.75rem 1.6rem;
+      color: var(--negro);
+      font-weight: 700;
+      padding: 0.8rem 1.8rem;
       border-radius: 100px;
       text-decoration: none;
       transition: opacity 0.2s;
     }
     .btn-primary:hover { opacity: 0.85; }
     .btn-outline {
-      border: 1.5px solid #444;
+      border: 2px solid rgba(255,255,255,0.3);
       color: var(--blanco);
-      font-weight: 500;
-      padding: 0.75rem 1.6rem;
+      font-weight: 700;
+      padding: 0.8rem 1.8rem;
       border-radius: 100px;
       text-decoration: none;
       transition: border-color 0.2s;
     }
-    .btn-outline:hover { border-color: #888; }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
 
+    
     /* ── STATS ── */
-    .stats {
+   .stats {
       display: flex;
       justify-content: center;
-      gap: 2rem;
       flex-wrap: wrap;
-      background: var(--negro);
-      border-top: 1px solid #222;
-      padding: 2rem;
+      background: var(--teal);
     }
     .stat {
       text-align: center;
+      padding: 1.5rem 2.5rem;
+      border-right: 1px solid rgba(0,0,0,0.1);
     }
+    .stat:last-child { border-right: none; }
     .stat strong {
       display: block;
-      font-family: 'Syne', sans-serif;
       font-size: 2rem;
       font-weight: 800;
-      color: var(--blanco);
+      color: var(--negro);
     }
     .stat small {
-      font-size: 0.85rem;
-      color: #666;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(0,0,0,0.6);
     }
 
-    /* ── SECCIÓN ── */
+ /* ── SECCIÓN genérica ── */
     section {
       max-width: 1100px;
       margin: 0 auto;
@@ -159,184 +199,177 @@
     }
     .section-label {
       font-size: 0.8rem;
-      font-weight: 500;
+      font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--gris);
-      margin-bottom: 0.5rem;
+      color: var(--morado);
+      margin-bottom: 0.4rem;
     }
     section h2 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
       font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
 
-    /* ── NIVELES ── */
+ /* ── NIVELES (fondo negro) ── */
+    .niveles-wrapper {
+      background: var(--negro);
+      padding: 4rem 2rem;
+    }
+    .niveles-inner { max-width: 1100px; margin: 0 auto; }
+    .niveles-inner .section-label { color: var(--teal); }
+    .niveles-inner h2 { color: var(--blanco); }
     .niveles {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
-      margin-bottom: 3rem;
     }
     .nivel-card {
       border-radius: var(--radio);
-      padding: 1.25rem 1.5rem;
-      font-weight: 500;
+      padding: 1.5rem;
+      font-weight: 600;
       font-size: 0.95rem;
     }
-    .nivel-card span {
-      display: block;
-      font-family: 'Syne', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      margin-bottom: 0.25rem;
-    }
-    .n1 { background: #e8f9f6; color: #0a6b59; }
-    .n2 { background: #fff3d6; color: #7a4a00; }
-    .n3 { background: #fde8e3; color: #8a2a14; }
+    .nivel-card .titulo { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; display: block; }
+    .n1 { background: var(--teal); color: #063d32; }
+    .n2 { background: var(--amarillo); color: #5a3a00; }
+    .n3 { background: var(--coral); color: #5a1000; }
     .n4 { background: #F7E8FC; color: #835E8F; }
 
     /* ── PROYECTOS ── */
     .proyectos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 1.25rem;
     }
     .card {
       background: var(--blanco);
-      border-radius: var(--radio);
+      border-radius: 16px;
       overflow: hidden;
-      border: 1px solid #ddd9d0;
-      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid transparent;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
-    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+    .card:nth-child(1) .card-thumb { background: #d6f5ef; }
+    .card:nth-child(2) .card-thumb { background: #ffe5b4; }
+    .card:nth-child(3) .card-thumb { background: #e8e0ff; }
+    .card:nth-child(1):hover { border-color: var(--teal); }
+    .card:nth-child(2):hover { border-color: var(--amarillo); }
+    .card:nth-child(3):hover { border-color: var(--morado); }
     .card-thumb {
       width: 100%;
       aspect-ratio: 16/9;
-      object-fit: cover;
-      background: #e0ded7;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
-    .card-body { padding: 1.25rem; }
+    .card-body { padding: 1.25rem 1.5rem 1.5rem; }
     .card-badge {
       display: inline-block;
       font-size: 0.75rem;
-      font-weight: 500;
-      padding: 0.25rem 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.8rem;
       border-radius: 100px;
       margin-bottom: 0.75rem;
     }
-    .badge-verde  { background: #e8f9f6; color: #0a6b59; }
+    .badge-verde  { background: #d6f5ef; color: #0a6b59; }
     .badge-ambar  { background: #fff3d6; color: #7a4a00; }
     .badge-coral  { background: #fde8e3; color: #8a2a14; }
-    .card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.01em;
-    }
-    .card p {
-      font-size: 0.9rem;
-      color: var(--gris);
-      margin-bottom: 1rem;
-    }
+    .badge-morado { background: #ede8ff; color: #4a2f8a; }
+    .card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .card p { font-size: 0.9rem; color: var(--gris); margin-bottom: 1rem; line-height: 1.55; }
     .card-link {
-      font-size: 0.875rem;
-      font-weight: 500;
+      font-size: 0.9rem;
+      font-weight: 700;
       color: var(--negro);
       text-decoration: none;
-      border-bottom: 1.5px solid var(--teal);
+      border-bottom: 2px solid var(--teal);
       padding-bottom: 1px;
       transition: color 0.2s;
     }
     .card-link:hover { color: var(--teal); }
 
-    /* ── ABOUT ── */
-    .about-grid {
+     /* ── ABOUT (fondo azul) ── */
+    .about-wrapper {
+      background: var(--azul);
+      padding: 4rem 2rem;
+    }
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       align-items: center;
     }
-    @media (max-width: 640px) {
-      .about-grid { grid-template-columns: 1fr; }
-    }
-    .about-text p { color: #555; margin-bottom: 1rem; }
+    @media (max-width: 640px) { .about-inner { grid-template-columns: 1fr; } }
+    .about-inner .section-label { color: rgba(255,255,255,0.6); }
+    .about-inner h2 { color: var(--blanco); margin-bottom: 1.25rem; }
+    .about-text p { color: rgba(255,255,255,0.8); margin-bottom: 0.9rem; }
     .about-visual {
-      background: var(--negro);
-      border-radius: 16px;
-      padding: 2.5rem 2rem;
-      color: var(--blanco);
-      text-align: center;
-    }
-    .about-visual .big { font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: var(--teal); }
-    .about-visual p { color: #888; font-size: 0.9rem; margin-top: 0.5rem; }
-
-    /* ── INSTAGRAM CTA ── */
-    .ig-cta {
-      background: var(--negro);
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.2);
       border-radius: 20px;
-      padding: 3.5rem 2rem;
+      padding: 2.5rem 2rem;
       text-align: center;
-      margin: 0 2rem 4rem;
     }
-    .ig-cta h2 {
-      color: var(--blanco);
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.75rem;
+    .about-logo {
+      height: 80px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
     }
-    .ig-cta p { color: #777; margin-bottom: 2rem; }
-    .ig-cta a {
+    .about-visual .año { font-size: 3.5rem; font-weight: 800; color: var(--amarillo); line-height: 1; margin-bottom: 0.25rem; }
+    .about-visual .champion { font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 0.05em; text-transform: uppercase; }
+    
+    /* ── CTA INSTAGRAM (fondo coral) ── */
+    .ig-cta {
       background: var(--coral);
-      color: var(--blanco);
-      font-weight: 500;
-      padding: 0.85rem 2rem;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .ig-cta h2 { color: var(--blanco); font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 0.75rem; }
+    .ig-cta p { color: rgba(255,255,255,0.75); margin-bottom: 2rem; font-size: 1.05rem; }
+    .ig-cta a {
+      background: var(--blanco);
+      color: var(--coral);
+      font-weight: 800;
+      padding: 0.9rem 2.2rem;
       border-radius: 100px;
       text-decoration: none;
       transition: opacity 0.2s;
     }
-    .ig-cta a:hover { opacity: 0.85; }
-
-    /* ── FOOTER ── */
+    .ig-cta a:hover { opacity: 0.9; }
+ 
+     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid #ddd9d0;
+      background: var(--negro);
       text-align: center;
       padding: 2rem;
       font-size: 0.85rem;
-      color: var(--gris);
+      color: #555;
     }
     footer a { color: var(--teal); text-decoration: none; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 480px) {
-      .stats { gap: 1.25rem; }
-    }
+ 
+    @media (max-width: 480px) { .stat { padding: 1.25rem 1.5rem; } }
   </style>
 </head>
-<body>
+<body> <!-- AQUÍ EMPIEZA EL CUERPO -->
 
-  <!-- ========== NAV ========== -->
+ <!-- ========== NAV ========== -->
   <nav>
     <a href="#" class="logo">micro<span>bital</span></a>
-</a>
     <!-- 🔧 Cambia el enlace de Instagram -->
     <a href="https://instagram.com/microbital" target="_blank" class="ig-btn">@microbital</a>
   </nav>
-
+ 
   <!-- ========== HERO ========== -->
   <header class="hero">
-    <img src="logo.png" alt="microbital" style="height: 90px; margin-bottom: 1.5rem; filter: drop-shadow(0 4px 24px rgba(15,196,167,0.35));" />
+    <!-- 🔧 Cambia logo.png por el nombre exacto de tu archivo subido a GitHub -->
+    <img src="logo.png" alt="microbital" class="hero-logo" />
     <div class="hero-tag">Proyectos educativos con micro:bit</div>
-    <h1>Aprende, crea y <em>programa</em> con micro:bit</h1>
+    <h1>Aprende, crea y <em>programa</em> con <strong>micro:bit</strong></h1>
     <p>Recursos y proyectos para docentes de Primaria y Secundaria. ¡Lleva la programación al aula!</p>
     <div class="hero-btns">
       <a href="#proyectos" class="btn-primary">Ver proyectos</a>
@@ -345,45 +378,38 @@
   </header>
 
   <!-- ========== STATS ========== 
-  <!-- 🔧 Cambia los números cuando quieras 
+  <!-- 🔧 Cambia los números cuando quieras -->
   <div class="stats">
-    <div class="stat">
-      <strong>3</strong>
-      <small>Niveles de dificultad</small>
-    </div>
-    <div class="stat">
-      <strong>0</strong>
-      <small>Proyectos publicados</small>
-    </div>
-    <div class="stat">
-      <strong>2</strong>
-      <small>Idiomas: ES / EN</small>
-    </div>
+    <div class="stat"><strong>3</strong><small>Niveles de dificultad</small></div>
+    <div class="stat"><strong>0</strong><small>Proyectos publicados</small></div>
+    <div class="stat"><strong>2</strong><small>Idiomas: ES / EN</small></div>
   </div>
 -->
   <!-- ========== NIVELES ========== -->
-  <section>
-    <p class="section-label">Sistema de niveles</p>
-    <h2>¿Para quién es cada proyecto?</h2>
-    <div class="niveles">
-      <div class="nivel-card n1">
-        <span> P </span>
-        Específicamente diseñado para el aula de Primaria.
-      </div>
-      <div class="nivel-card n2">
-        <span> S </span>
-        Ideado para el aula de Secundaria.
-      </div>
-      <div class="nivel-card n3">
-        <span> C </span>
-        Herramientas para gestión de aula. No importa el nivel.
-      </div>
-      <div class="nivel-card n4">
-        <span> T </span>
-        Proyecto para todos los niveles.
+ <div class="niveles-wrapper">
+    <div class="niveles-inner">
+      <p class="section-label">Sistema de niveles</p>
+      <h2>¿Para quién es cada proyecto?</h2>
+      <div class="niveles">
+        <div class="nivel-card n1">
+          <span class="titulo"> Primaria </span>
+          Para el aula de Primaria. Simples pero bastante completos.
+        </div>
+        <div class="nivel-card n2">
+          <span class="titulo"> Secundaria </span>
+          Para el aula de Secundaria. Un poco más avanzados.
+        </div>
+        <div class="nivel-card n3">
+          <span class="titulo"> Clase </span>
+          Proyectos para gestionar tu aula.
+        </div>
+         <div class="nivel-card n4">
+          <span class="titulo"> Todos </span>
+          Proyectos que se pueden utilizar en cualquier clase de cualquier nivel.
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ========== PROYECTOS ========== -->
   <section id="proyectos">
@@ -432,14 +458,13 @@
       <article class="card">
         <div class="card-thumb">📖</div>
         <div class="card-body">
-          <span class="card-badge badge-verde">Todos los niveles</span>
+          <span class="card-badge badge-morado">Todos los niveles</span>
           <h3>Especial Día del libro</h3>
           <p>Creamos una ruleta de géneros literarios y una máquina de personajes para seleccionar aleatoriamente un elemento de ambas listas y dar rienda suelta a nuestra creatividad.</p>
           <a href="https://makecode.microbit.org/S72761-21099-39083-94687">Ver proyecto →</a>
         </div>
       </article>
-      
-<!-- ── Tipografía ── 
+       
       <!-- 🔧 TARJETA VACÍA — Rellena cuando tengas nuevo proyecto 
       <article class="card">
         <div class="card-thumb">✨</div>
@@ -455,31 +480,37 @@
   </section>
 
   <!-- ========== SOBRE ========== -->
-  <section id="sobre">
-    <p class="section-label">Sobre microbital</p>
-    <h2>¿Qué es microbital?</h2>
-    <div class="about-grid">
+   <div class="about-wrapper" id="sobre">
+    <div class="about-inner">
       <div class="about-text">
+        <p class="section-label">Sobre microbital</p>
+        <h2>¿Qué es microbital?</h2>
         <!-- 🔧 Edita esta descripción a tu gusto -->
         <p>Microbit AL es un proyecto de divulgación educativa centrado en la placa micro:bit, un cerebrito pensado para aprender a programar por bloques desde cero.</p>
         <p>Aquí encontrarás proyectos, recursos y actividades diseñados para docentes de Primaria y Secundaria que quieren llevar la programación y la robótica al aula de forma sencilla y motivadora.</p>
         <p>Contenido disponible en castellano y <strong> próximamente, en inglés</strong>.</p>
       </div>
+    <div class="about-visual">
+        <!-- 🔧 Cambia logo.png por el nombre de tu archivo -->
+        <img src="logo.png" alt="microbital" class="about-logo" />
+        <div class="año">2026</div>
+        <div class="champion">micro:bit Champion</div>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ========== CTA INSTAGRAM ========== -->
-  <div class="ig-cta">
+ <div class="ig-cta">
     <h2>¿Quieres más contenido?</h2>
     <p>Cada semana nuevos proyectos, trucos y recursos en Instagram.</p>
     <!-- 🔧 Cambia el enlace -->
     <a href="https://instagram.com/microbital" target="_blank">Seguir @microbital</a>
   </div>
-
+ 
   <!-- ========== FOOTER ========== -->
   <footer>
     <p>microbital · <a href="https://instagram.com/microbital" target="_blank">@microbital</a> · Hecho con ♥ y micro:bit</p>
   </footer>
-
+ 
 </body>
 </html>
+ 
