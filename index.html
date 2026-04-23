@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>microbital — Proyectos con micro:bit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ── */
+    :root {
+      --negro:   #111214;
+      --blanco:  #f8f7f3;
+      --teal:    #0fc4a7;
+      --coral:   #ff5e41;
+      --amarillo:#ffc847;
+      --azul:    #3a7bfd;
+      --fondo:   #f2f0eb;
+      --gris:    #888680;
+      --radio:   12px;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--fondo);
+      color: var(--negro);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── Tipografía ── */
+    h1, h2, h3, .logo { font-family: 'Syne', sans-serif; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: var(--negro);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--teal);
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+    .logo span { color: var(--blanco); }
+    nav a.ig-btn {
+      background: var(--teal);
+      color: var(--negro);
+      font-weight: 500;
+      font-size: 0.875rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    nav a.ig-btn:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--negro);
+      color: var(--blanco);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--negro);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      max-width: 14ch;
+      margin: 0 auto 1.5rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #aaa8a2;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--teal);
+      color: var(--negro);
+      font-weight: 500;
+      padding: 0.75rem 1.6rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      border: 1.5px solid #444;
+      color: var(--blanco);
+      font-weight: 500;
+      padding: 0.75rem 1.6rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-outline:hover { border-color: #888; }
+
+    /* ── STATS ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      background: var(--negro);
+      border-top: 1px solid #222;
+      padding: 2rem;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--blanco);
+    }
+    .stat small {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* ── SECCIÓN ── */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gris);
+      margin-bottom: 0.5rem;
+    }
+    section h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── NIVELES ── */
+    .niveles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .nivel-card {
+      border-radius: var(--radio);
+      padding: 1.25rem 1.5rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .nivel-card span {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+    .n1 { background: #e8f9f6; color: #0a6b59; }
+    .n2 { background: #fff3d6; color: #7a4a00; }
+    .n3 { background: #fde8e3; color: #8a2a14; }
+
+    /* ── PROYECTOS ── */
+    .proyectos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--blanco);
+      border-radius: var(--radio);
+      overflow: hidden;
+      border: 1px solid #ddd9d0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    }
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: #e0ded7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    .card-body { padding: 1.25rem; }
+    .card-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      margin-bottom: 0.75rem;
+    }
+    .badge-verde  { background: #e8f9f6; color: #0a6b59; }
+    .badge-ambar  { background: #fff3d6; color: #7a4a00; }
+    .badge-coral  { background: #fde8e3; color: #8a2a14; }
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--gris);
+      margin-bottom: 1rem;
+    }
+    .card-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--negro);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--teal);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+    .card-link:hover { color: var(--teal); }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+    .about-text p { color: #555; margin-bottom: 1rem; }
+    .about-visual {
+      background: var(--negro);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      color: var(--blanco);
+      text-align: center;
+    }
+    .about-visual .big { font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: var(--teal); }
+    .about-visual p { color: #888; font-size: 0.9rem; margin-top: 0.5rem; }
+
+    /* ── INSTAGRAM CTA ── */
+    .ig-cta {
+      background: var(--negro);
+      border-radius: 20px;
+      padding: 3.5rem 2rem;
+      text-align: center;
+      margin: 0 2rem 4rem;
+    }
+    .ig-cta h2 {
+      color: var(--blanco);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+    .ig-cta p { color: #777; margin-bottom: 2rem; }
+    .ig-cta a {
+      background: var(--coral);
+      color: var(--blanco);
+      font-weight: 500;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .ig-cta a:hover { opacity: 0.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid #ddd9d0;
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      color: var(--gris);
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .stats { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav>
+    <a href="#" class="logo">micro<span>bital</span></a>
+    <!-- 🔧 Cambia el enlace de Instagram -->
+    <a href="https://instagram.com/microbital" target="_blank" class="ig-btn">@microbital</a>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <header class="hero">
+    <div class="hero-tag">Proyectos educativos con micro:bit</div>
+    <h1>Aprende, crea y <em>programa</em> con micro:bit</h1>
+    <p>Recursos y proyectos para docentes de Primaria y Secundaria. ¡Lleva la programación al aula!</p>
+    <div class="hero-btns">
+      <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+      <a href="#sobre" class="btn-outline">Sobre microbital</a>
+    </div>
+  </header>
+
+  <!-- ========== STATS ========== -->
+  <!-- 🔧 Cambia los números cuando quieras -->
+  <div class="stats">
+    <div class="stat">
+      <strong>3</strong>
+      <small>Niveles de dificultad</small>
+    </div>
+    <div class="stat">
+      <strong>0</strong>
+      <small>Proyectos publicados</small>
+    </div>
+    <div class="stat">
+      <strong>2</strong>
+      <small>Idiomas: ES / EN</small>
+    </div>
+  </div>
+
+  <!-- ========== NIVELES ========== -->
+  <section>
+    <p class="section-label">Sistema de niveles</p>
+    <h2>¿Para quién es cada proyecto?</h2>
+    <div class="niveles">
+      <div class="nivel-card n1">
+        <span> P </span>
+        Específicamente diseñado para el aula de Primaria.
+      </div>
+      <div class="nivel-card n2">
+        <span> S </span>
+        Ideado para el aula de Secundaria.
+      </div>
+      <div class="nivel-card n3">
+        <span> C </span>
+        Herramientas para gestión de aula. No importa el nivel.
+      </div>
+      <div class="nivel-card n4">
+        <span>🔴 T </span>
+        Proyecto para todos los niveles.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROYECTOS ========== -->
+  <section id="proyectos">
+    <p class="section-label">Proyectos</p>
+    <h2>Explora los proyectos</h2>
+    <div class="proyectos-grid">
+
+      <!-- 🔧 TARJETA DE EJEMPLO — Copia este bloque para añadir más proyectos -->
+      <article class="card">
+        <div class="card-thumb">🤖</div>
+        <div class="card-body">
+          <span class="card-badge badge-ambar">Nivel 1</span>
+          <h3>Expresa tus emociones</h3>
+          <p> La placa micro:bit muestra en su pantalla distintas caritas que representan emociones, dependiendo de su posición.</p>
+          <!-- 🔧 Cambia el href por el enlace de tu proyecto en MakeCode o donde lo tengas -->
+          <a href="https://makecode.microbit.org/S91348-75093-03049-45934" class="card-link">Ver proyecto →</a>
+        </div>
+      </article>
+      <!-- FIN TARJETA -->
+
+      <!-- 🔧 OTRA TARJETA — Modifica el contenido -->
+      <article class="card">
+        <div class="card-thumb">📡</div>
+        <div class="card-body">
+          <span class="card-badge badge-coral">Nivel 3</span>
+          <h3>Elige una persona al azar entre tu alumnado</h3>
+          <p>Herramienta que muestra un/a alumno/a al azar de una lista dada.</p>
+          <a href="https://makecode.microbit.org/S54733-89655-68204-53618" class="card-link">Ver proyecto →</a>
+        </div>
+      </article>
+      <!-- FIN TARJETA -->
+
+      <!-- 🔧 TARJETA VACÍA — Rellena cuando tengas nuevo proyecto -->
+      <article class="card">
+        <div class="card-thumb">✨</div>
+        <div class="card-body">
+          <span class="card-badge badge-verde">Nivel 2</span>
+          <h3>Código Morse a distancia</h3>
+          <p>Programa en el cual, insertamos código Morse en una tarjeta emisora, y la tarjeta receptora lo decodifica para mostrar la palabra con el alfabeto latino.</p>
+          <a href="https://makecode.microbit.org/S66794-63262-45594-13681" class="card-link">Ver proyecto tarjeta EMISORA →</a>
+          <a href="https://makecode.microbit.org/S30343-03397-79021-49275" class="card-link">Ver proyecto tarjeta RECEPTORA →</a>
+        </div>
+      </article>
+
+      <!-- 🔧 TARJETA VACÍA — Rellena cuando tengas nuevo proyecto -->
+      <article class="card">
+        <div class="card-thumb">✨</div>
+        <div class="card-body">
+          <span class="card-badge badge-verde">Nivel 1</span>
+          <h3>Próximamente...</h3>
+          <p>Nuevo proyecto en camino. Síguenos en Instagram para no perdértelo.</p>
+          <a href="https://instagram.com/microbital" class="card-link">Seguir en IG →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ========== SOBRE ========== -->
+  <section id="sobre">
+    <p class="section-label">Sobre microbital</p>
+    <h2>¿Qué es microbital?</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <!-- 🔧 Edita esta descripción a tu gusto -->
+        <p>Microbit AL es un proyecto de divulgación educativa centrado en la placa micro:bit, un cerebrito pensado para aprender a programar por bloques desde cero.</p>
+        <p>Aquí encontrarás proyectos, recursos y actividades diseñados para docentes de Primaria y Secundaria que quieren llevar la programación y la robótica al aula de forma sencilla y motivadora.</p>
+        <p>Contenido disponible en <strong>castellano y próximamente, en inglés</strong>.</p>
+      </div>
+      <div class="about-visual">
+        <div class="big">micro:bit</div>
+        <p>Champion 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA INSTAGRAM ========== -->
+  <div class="ig-cta">
+    <h2>¿Quieres más contenido?</h2>
+    <p>Cada semana nuevos proyectos, trucos y recursos en Instagram.</p>
+    <!-- 🔧 Cambia el enlace -->
+    <a href="https://instagram.com/microbital" target="_blank">Seguir @microbital</a>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p>microbital · <a href="https://instagram.com/microbital" target="_blank">@microbital</a> · Hecho con ♥ y micro:bit</p>
+  </footer>
+
+</body>
+</html>
