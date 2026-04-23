@@ -250,17 +250,8 @@
       transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
 
-    .card_primaria{
-      background: var (--blanco);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 2px solid transparent;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      thumb: background: #d6f5ef;
-    }
-
     .card_primaria:hover {border-color: var(--teal); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.12);}
-    .card_primaria.card-thumb {background: #d6f5ef;}
+    .card_primaria .card-thumb {background: #d6f5ef;}
 
     
     .card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
@@ -435,7 +426,7 @@
     <div class="proyectos-grid">
 
       <!-- OTRA TARJETA -->
-      <article class="card_primaria">
+      <article class="card card_primaria">
         <div class="card-thumb">🎭​</div>
         <div class="card-body">
           <span class="card-badge badge-verde">Primaria</span>
