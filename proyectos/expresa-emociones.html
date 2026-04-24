@@ -1,1 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 🔧 Cambia el título por el nombre del proyecto -->
+  <title>Expresa tus emociones — microbital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --negro:    #111214;
+      --blanco:   #f8f7f3;
+      --teal:     #0fc4a7;
+      --amarillo: #ffc847;
+      --coral:    #ff5e41;
+      --morado:   #CE9EF7;
+      --azul:     #3a7bfd;
+      --fondo:    #f2f0eb;
+      --gris:     #888680;
+      --radio:    14px;
+      /* COLOR DE ACENTO PARA ESTE NIVEL — Primaria = teal */
+      --acento:   #0fc4a7;
+      --acento-bg:#d6f5ef;
+      --acento-txt:#063d32;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--fondo);
+      color: var(--negro);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: var(--negro);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--teal);
+      text-decoration: none;
+    }
+    .logo span { color: var(--blanco); }
+    nav a.ig-btn {
+      background: var(--teal);
+      color: var(--negro);
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    nav a.ig-btn:hover { opacity: 0.85; }
+
+    /* ── CABECERA DEL PROYECTO ── */
+    .proyecto-header {
+      background: linear-gradient(135deg, #1a0533 0%, #0d2a4a 50%, #0a3a2e 100%);
+      color: var(--blanco);
+      padding: 3.5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .proyecto-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(15,196,167,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .breadcrumb {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.25rem;
+    }
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .nivel-pill {
+      display: inline-block;
+      background: var(--acento);
+      color: var(--acento-txt);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+    .proyecto-header h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .proyecto-header .descripcion {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 580px;
+      margin-bottom: 1.75rem;
+    }
+    .meta-chips {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+    }
+
+    /* ── CONTENIDO PRINCIPAL ── */
+    .contenido {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    /* ── INTRO / RESUMEN ── */
+    .resumen-box {
+      background: var(--acento-bg);
+      border-left: 4px solid var(--acento);
+      border-radius: 0 12px 12px 0;
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 3rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--acento-txt);
+    }
+    .resumen-box strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; font-weight: 800; }
+
+    /* ── SECCIÓN DE MATERIALES ── */
+    .materiales {
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 3rem;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .materiales h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .materiales ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .materiales li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .materiales li::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 22px;
+      background: var(--acento);
+      color: var(--acento-txt);
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* ── TÍTULO DE SECCIÓN ── */
+    .seccion-titulo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 3px solid var(--acento);
+      display: inline-block;
+    }
+
+    /* ── PASO A PASO ── */
+    .pasos { display: flex; flex-direction: column; gap: 2.5rem; margin-bottom: 3rem; }
+
+    .paso {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      background: var(--blanco);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    /* Pasos pares: imagen a la izquierda, texto a la derecha */
+    .paso:nth-child(even) { direction: rtl; }
+    .paso:nth-child(even) > * { direction: ltr; }
+
+    @media (max-width: 640px) {
+      .paso { grid-template-columns: 1fr; direction: ltr; }
+      .paso:nth-child(even) { direction: ltr; }
+    }
+
+    .paso-imagen {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      background: var(--acento-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ================================================
+       🔧 CÓMO INSERTAR UNA IMAGEN EN UN PASO
+       ================================================
+       Opción A — imagen local (en tu carpeta img/):
+         <img src="../img/paso1.png" alt="Descripción" />
+
+       Opción B — imagen de URL externa:
+         <img src="https://..." alt="Descripción" />
+
+       Para ajustar la posición y tamaño de la imagen,
+       añade un style="" al <img>. Ejemplos:
+         style="width:100%; object-fit:cover;"   → ocupa todo el recuadro
+         style="width:80%; padding:1rem;"         → con margen
+         style="height:200px; object-fit:contain;" → altura fija, sin recortar
+
+       Si todavía no tienes imagen, deja el bloque
+       .paso-imagen tal cual — aparece el emoji de placeholder.
+       ================================================ -->
+    .paso-imagen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .paso-imagen .placeholder {
+      font-size: 4rem;
+      opacity: 0.4;
+    }
+
+    .paso-texto { padding: 1.75rem 2rem; }
+    .paso-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--acento);
+      color: var(--acento-txt);
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .paso-texto h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .paso-texto p  { font-size: 0.92rem; color: var(--gris); line-height: 1.65; }
+
+    /* Nota dentro de un paso */
+    .nota {
+      margin-top: 0.75rem;
+      background: var(--acento-bg);
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--acento-txt);
+    }
+
+    /* ── SECCIÓN CÓDIGO (opcional) ── */
+    .codigo-bloque {
+      background: var(--negro);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+    .codigo-bloque code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: var(--teal);
+      white-space: pre;
+    }
+
+    /* ── CTA FINAL — ENLACE AL PROYECTO ── */
+    .cta-proyecto {
+      background: var(--negro);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .cta-proyecto h2 {
+      color: var(--blanco);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .cta-proyecto p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+      margin-bottom: 1.75rem;
+    }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-makecode {
+      background: var(--acento);
+      color: var(--acento-txt);
+      font-weight: 800;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+    .btn-makecode:hover { opacity: 0.85; }
+    .btn-volver {
+      border: 2px solid rgba(255,255,255,0.25);
+      color: var(--blanco);
+      font-weight: 700;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    .btn-volver:hover { border-color: rgba(255,255,255,0.6); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--negro);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav>
+    <a href="../index.html" class="logo">micro<span>bital</span></a>
+    <a href="https://instagram.com/microbital" target="_blank" class="ig-btn">@microbital</a>
+  </nav>
+
+  <!-- ========== CABECERA DEL PROYECTO ========== -->
+  <header class="proyecto-header">
+    <div class="header-inner">
+      <p class="breadcrumb"><a href="../index.html">microbital</a> › Proyectos › Primaria</p>
+      <span class="nivel-pill">Primaria</span>
+      <!-- 🔧 Cambia el título y la descripción -->
+      <h1>Expresa tus emociones</h1>
+      <p class="descripcion">La placa micro:bit muestra en su pantalla distintas caritas que representan emociones, dependiendo de su posición.</p>
+      <div class="meta-chips">
+        <!-- 🔧 Cambia los chips a tu gusto: dificultad, tiempo, herramienta... -->
+        <span class="chip">🧩 MakeCode bloques</span>
+        <span class="chip">⏱ 55 min</span>
+        <span class="chip">📅 Abr 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== CONTENIDO ========== -->
+  <main class="contenido">
+
+    <!-- RESUMEN / ¿QUÉ VOY A APRENDER? -->
+    <div class="resumen-box">
+      <strong>¿Qué vas a aprender con este proyecto?</strong>
+      <!-- 🔧 Escribe aquí en 2-3 frases qué aprenderá el docente o el alumnado -->
+      Aprenderás a usar el acelerómetro de la micro:bit para detectar la inclinación de la placa y mostrar una imagen diferente según la posición. También practicarás el uso de iconos y sonidos.
+    </div>
+
+    <!-- MATERIALES -->
+    <div class="materiales">
+      <h2>Materiales necesarios</h2>
+      <ul>
+        <!-- 🔧 Añade o quita materiales según el proyecto -->
+        <li>1 placa micro:bit</li>
+        <li>Cable USB o portapilas</li>
+        <li>Ordenador con navegador web (para MakeCode)</li>
+      </ul>
+      <h2>Componentes utilizados</h2>
+      <ul>
+        <li>Zumbador</li>
+        <li>Acelerómetro</li>
+        <li>Pantalla de LED</li>
+      </ul>
+    </div>
+
+    <!-- PASO A PASO -->
+    <h2 class="seccion-titulo">Paso a paso</h2>
+    <div class="pasos">
+
+      <!-- ====== PASO 1 ====== -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 IMAGEN DEL PASO 1
+               Cuando tengas la captura, sustituye el emoji por:
+               <img src="../img/emociones-paso1.png" alt="Paso 1: pantalla de inicio en MakeCode" />
+               Ver instrucciones completas de imágenes más arriba en el CSS.
+          -->
+          <span class="placeholder">🖥️</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">1</span>
+          <h3>Abre MakeCode y crea un proyecto nuevo</h3>
+          <p>Entra en <strong>makecode.microbit.org</strong>, haz clic en "Nuevo proyecto" y ponle un nombre, por ejemplo: <em>mis-emociones</em>.</p>
+        </div>
+      </div>
+
+      <!-- ====== PASO 2 ====== -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <span class="placeholder">📦</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">2</span>
+          <!-- 🔧 Título del paso -->
+          <h3>Añade los bloques de entrada</h3>
+          <!-- 🔧 Descripción del paso -->
+          <p>Ve a la categoría <strong>Entrada</strong> y arrastra el bloque "cuando se agita" al área de trabajo. Este bloque se ejecutará cada vez que muevamos la placa.</p>
+          <div class="nota">💡 También puedes usar "al inclinar" para detectar la dirección exacta.</div>
+        </div>
+      </div>
+
+      <!-- ====== PASO 3 ====== -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <span class="placeholder">😊</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">3</span>
+          <h3>Muestra una carita según la posición</h3>
+          <p>Dentro del bloque de inclinación, usa <strong>Básico › mostrar icono</strong> para mostrar una cara feliz, triste o sorprendida según la dirección.</p>
+        </div>
+      </div>
+
+      <!-- ====== PASO 4 ====== -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <span class="placeholder">⬇️</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">4</span>
+          <h3>Descarga el programa a tu micro:bit</h3>
+          <p>Haz clic en el botón morado <strong>"Descargar"</strong> en la parte inferior de MakeCode. Conecta tu micro:bit al ordenador con el cable USB y copia el archivo .hex a la placa.</p>
+          <div class="nota">💡 Si tu micro:bit es v2, también puedes usar la transferencia directa por WebUSB.</div>
+        </div>
+      </div>
+
+      <!-- ====== PASO 5 ====== -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <span class="placeholder">🎉</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">5</span>
+          <h3>¡Pruébalo!</h3>
+          <p>Inclina la placa en distintas direcciones y observa cómo cambian las caritas. Si algo no funciona, revisa que cada bloque "al inclinar" tiene su propia imagen asignada.</p>
+        </div>
+      </div>
+
+      <!-- 🔧 Para añadir más pasos, copia el bloque completo de .paso y pégalo aquí -->
+
+    </div><!-- fin .pasos -->
+
+    <!-- CTA FINAL — ENLACE AL PROYECTO EN MAKECODE -->
+    <div class="cta-proyecto">
+      <h2>¿Listo para programarlo? 🚀</h2>
+      <p>Abre el proyecto directamente en MakeCode y empieza a experimentar.</p>
+      <div class="cta-btns">
+        <!-- 🔧 Sustituye el href por el enlace real de tu proyecto en MakeCode -->
+        <a href="https://makecode.microbit.org/S91348-75093-03049-45934" target="_blank" class="btn-makecode">Abrir en MakeCode →</a>
+        <a href="../index.html" class="btn-volver">← Volver a proyectos</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p>microbital · <a href="https://instagram.com/microbital" target="_blank">@microbital</a> · Hecho con ♥ y micro:bit</p>
+  </footer>
+
+</body>
+</html>
 
