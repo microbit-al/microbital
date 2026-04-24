@@ -222,9 +222,12 @@
     .niveles-inner h2 { color: var(--blanco); }
     .niveles {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
-    }
+      }
+    @media (max-width: 700px) {
+    .niveles { grid-template-columns: repeat(2, 1fr); }
+      }
     .nivel-card {
       border-radius: var(--radio);
       padding: 1.5rem;
@@ -248,9 +251,16 @@
     /* ── PROYECTOS ── */
     .proyectos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
-    }
+      align-items: start;
+      }
+    @media (max-width: 900px) {
+    .proyectos-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+    @media (max-width: 560px) {
+    .proyectos-grid { grid-template-columns: 1fr; }
+      }
     .card {
       background: var(--blanco);
       border-radius: 16px;
