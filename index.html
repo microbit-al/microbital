@@ -211,6 +211,7 @@
       margin-bottom: 2rem;
     }
 
+    
  /* ── NIVELES (fondo negro) ── */
     .niveles-wrapper {
       background: var(--negro);
@@ -236,6 +237,14 @@
     .n3 { background: var(--coral); color: #5a1000; }
     .n4 { background: var(--morado); color: #491C57; }
 
+
+    /* data filter para filtrar al hacer clic sobre los niveles*/ 
+
+    <div class="nivel-card n1" data-filter="card_primaria">
+    <div class="nivel-card n2" data-filter="card_secundaria">
+    <div class="nivel-card n3" data-filter="card_clase">
+    <div class="nivel-card n4" data-filter="card_todos">
+
     /* ── PROYECTOS ── */
     .proyectos-grid {
       display: grid;
@@ -260,8 +269,6 @@
     .card:nth-child(3):hover { border-color: var(--morado); }
     .card:nth-child(4):hover { border-color: var(--coral);} */
 
-
-        
     .card-thumb {
       width: 100%;
       aspect-ratio: 16/9;
@@ -372,6 +379,15 @@
     footer a { color: var(--teal); text-decoration: none; }
  
     @media (max-width: 480px) { .stat { padding: 1.25rem 1.5rem; } }
+
+    /* PARA LOS FILTROS POR CATEGORÍA*/
+.nivel-card { cursor: pointer; transition: transform 0.15s, opacity 0.15s; }
+.nivel-card:hover { transform: translateY(-3px); }
+.nivel-card.activo { outline: 3px solid white; outline-offset: 3px; }
+.card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, opacity 0.3s; }
+.card.oculta { display: none; }
+    /* ACABA AQUÍ */
+    
   </style>
 </head>
 <body> <!-- AQUÍ EMPIEZA EL CUERPO -->
@@ -530,7 +546,33 @@
   <footer>
     <p>microbital · <a href="https://instagram.com/microbital" target="_blank">@microbital</a> · Hecho con ♥ y micro:bit</p>
   </footer>
- 
+
+  <!--  Aquí está el código en JS que hace que se filtre por niveles de proyectos -->
+  <script>
+  const niveles = document.querySelectorAll('.nivel-card[data-filter]');
+  const tarjetas = document.querySelectorAll('.proyectos-grid .card');
+
+  niveles.forEach(nivel => {
+    nivel.addEventListener('click', () => {
+      const filtro = nivel.dataset.filter;
+      const yaActivo = nivel.classList.contains('activo');
+
+      // Quitar estado activo de todos
+      niveles.forEach(n => n.classList.remove('activo'));
+
+      if (yaActivo) {
+        // Si ya estaba activo, mostrar todas
+        tarjetas.forEach(t => t.classList.remove('oculta'));
+      } else {
+        // Activar este y filtrar
+        nivel.classList.add('activo');
+        tarjetas.forEach(t => {
+          t.classList.toggle('oculta', !t.classList.contains(filtro));
+        });
+      }
+    });
+  });
+</script>
 </body>
 </html>
  
