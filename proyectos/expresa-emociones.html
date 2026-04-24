@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- 🔧 Cambia el título por el nombre del proyecto -->
   <title>Expresa tus emociones — microbital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,10 +19,9 @@
       --fondo:    #f2f0eb;
       --gris:     #888680;
       --radio:    14px;
-      /* COLOR DE ACENTO PARA ESTE NIVEL — Primaria = teal */
-      --acento:   #0fc4a7;
-      --acento-bg:#d6f5ef;
-      --acento-txt:#063d32;
+      --acento:     #0fc4a7;
+      --acento-bg:  #d6f5ef;
+      --acento-txt: #063d32;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -47,12 +45,7 @@
       top: 0;
       z-index: 100;
     }
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--teal);
-      text-decoration: none;
-    }
+    .logo { font-size: 1.4rem; font-weight: 800; color: var(--teal); text-decoration: none; }
     .logo span { color: var(--blanco); }
     nav a.ig-btn {
       background: var(--teal);
@@ -66,7 +59,7 @@
     }
     nav a.ig-btn:hover { opacity: 0.85; }
 
-    /* ── CABECERA DEL PROYECTO ── */
+    /* ── CABECERA ── */
     .proyecto-header {
       background: linear-gradient(135deg, #1a0533 0%, #0d2a4a 50%, #0a3a2e 100%);
       color: var(--blanco);
@@ -83,18 +76,8 @@
       background: radial-gradient(circle, rgba(15,196,167,0.2) 0%, transparent 70%);
       pointer-events: none;
     }
-    .header-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-    .breadcrumb {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 1.25rem;
-    }
+    .header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+    .breadcrumb { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 1.25rem; }
     .breadcrumb a { color: var(--teal); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
     .nivel-pill {
@@ -109,23 +92,9 @@
       border-radius: 100px;
       margin-bottom: 1rem;
     }
-    .proyecto-header h1 {
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 1rem;
-    }
-    .proyecto-header .descripcion {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.7);
-      max-width: 580px;
-      margin-bottom: 1.75rem;
-    }
-    .meta-chips {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
+    .proyecto-header h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .proyecto-header .descripcion { font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 580px; margin-bottom: 1.75rem; }
+    .meta-chips { display: flex; gap: 0.75rem; flex-wrap: wrap; }
     .chip {
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.18);
@@ -136,14 +105,10 @@
       border-radius: 100px;
     }
 
-    /* ── CONTENIDO PRINCIPAL ── */
-    .contenido {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3rem 2rem 4rem;
-    }
+    /* ── CONTENIDO ── */
+    .contenido { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 4rem; }
 
-    /* ── INTRO / RESUMEN ── */
+    /* ── RESUMEN ── */
     .resumen-box {
       background: var(--acento-bg);
       border-left: 4px solid var(--acento);
@@ -156,48 +121,49 @@
     }
     .resumen-box strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; font-weight: 800; }
 
-    /* ── SECCIÓN DE MATERIALES ── */
-    .materiales {
+    /* ── DOS COLUMNAS: materiales + asignaturas ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 580px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-box {
       background: var(--blanco);
       border-radius: 16px;
-      padding: 1.75rem 2rem;
-      margin-bottom: 3rem;
+      padding: 1.75rem;
       border: 2px solid rgba(0,0,0,0.06);
     }
-    .materiales h2 {
-      font-size: 1.2rem;
+    .info-box h2 {
+      font-size: 1rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
-    .materiales ul {
-      list-style: none;
+    .info-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .info-box li {
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .materiales li {
-      display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.6rem;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
     }
-    .materiales li::before {
+    .info-box li::before {
       content: '✓';
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 22px; height: 22px;
+      width: 20px; height: 20px;
       background: var(--acento);
       color: var(--acento-txt);
       border-radius: 50%;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 800;
       flex-shrink: 0;
+      margin-top: 2px;
     }
+    .asig-box li::before { background: var(--amarillo); color: #5a3a00; }
 
     /* ── TÍTULO DE SECCIÓN ── */
     .seccion-titulo {
@@ -209,32 +175,30 @@
       display: inline-block;
     }
 
-    /* ── PASO A PASO ── */
+    /* ── PASOS ── */
     .pasos { display: flex; flex-direction: column; gap: 2.5rem; margin-bottom: 3rem; }
 
     .paso {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
+      gap: 0;
+      align-items: stretch;
       background: var(--blanco);
       border-radius: 16px;
       overflow: hidden;
       border: 2px solid rgba(0,0,0,0.06);
     }
-    /* Pasos pares: imagen a la izquierda, texto a la derecha */
-    .paso:nth-child(even) { direction: rtl; }
-    .paso:nth-child(even) > * { direction: ltr; }
-
+    .paso:nth-child(even) .paso-imagen { order: 2; }
+    .paso:nth-child(even) .paso-texto  { order: 1; }
     @media (max-width: 640px) {
-      .paso { grid-template-columns: 1fr; direction: ltr; }
-      .paso:nth-child(even) { direction: ltr; }
+      .paso { grid-template-columns: 1fr; }
+      .paso:nth-child(even) .paso-imagen { order: 1; }
+      .paso:nth-child(even) .paso-texto  { order: 2; }
     }
 
     .paso-imagen {
       width: 100%;
-      height: 100%;
-      min-height: 220px;
+      min-height: 240px;
       background: var(--acento-bg);
       display: flex;
       align-items: center;
@@ -243,34 +207,28 @@
       overflow: hidden;
     }
 
-    /* ================================================
-       🔧 CÓMO INSERTAR UNA IMAGEN EN UN PASO
-       ================================================
-       Opción A — imagen local (en tu carpeta img/):
-         <img src="../img/paso1.png" alt="Descripción" />
+    /* ════════════════════════════════════════════════════
+       🔧 CÓMO PONER LA IMAGEN DE CADA PASO
+       ════════════════════════════════════════════════════
+       1. Sube la captura a la carpeta img/ de tu GitHub.
+          Ejemplo: img/emociones-paso1.png
 
-       Opción B — imagen de URL externa:
-         <img src="https://..." alt="Descripción" />
+       2. Sustituye el <span class="placeholder"> por:
+          <img src="../img/emociones-paso1.png"
+               alt="Descripción del paso"
+               style="width:100%; object-fit:contain; padding:1rem;" />
 
-       Para ajustar la posición y tamaño de la imagen,
-       añade un style="" al <img>. Ejemplos:
-         style="width:100%; object-fit:cover;"   → ocupa todo el recuadro
-         style="width:80%; padding:1rem;"         → con margen
-         style="height:200px; object-fit:contain;" → altura fija, sin recortar
+       Opciones de style para ajustar la imagen:
+         · Captura que ocupa todo el recuadro (recortada):
+             style="width:100%; height:100%; object-fit:cover;"
+         · Captura completa con margen (recomendada para MakeCode):
+             style="width:90%; object-fit:contain; padding:1rem;"
+         · Altura fija sin recortar:
+             style="height:220px; object-fit:contain;"
+       ════════════════════════════════════════════════════ */
 
-       Si todavía no tienes imagen, deja el bloque
-       .paso-imagen tal cual — aparece el emoji de placeholder.
-       ================================================ -->
-    .paso-imagen img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .paso-imagen .placeholder {
-      font-size: 4rem;
-      opacity: 0.4;
-    }
+    .paso-imagen img { width: 100%; height: 100%; display: block; }
+    .paso-imagen .placeholder { font-size: 4.5rem; opacity: 0.35; }
 
     .paso-texto { padding: 1.75rem 2rem; }
     .paso-num {
@@ -287,8 +245,6 @@
     }
     .paso-texto h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; }
     .paso-texto p  { font-size: 0.92rem; color: var(--gris); line-height: 1.65; }
-
-    /* Nota dentro de un paso */
     .nota {
       margin-top: 0.75rem;
       background: var(--acento-bg);
@@ -299,22 +255,60 @@
       color: var(--acento-txt);
     }
 
-    /* ── SECCIÓN CÓDIGO (opcional) ── */
-    .codigo-bloque {
-      background: var(--negro);
-      border-radius: 12px;
-      padding: 1.5rem 1.75rem;
-      margin: 1rem 0;
-      overflow-x: auto;
+    /* ── TIPS + IDEAS (dos columnas) ── */
+    .extra-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
     }
-    .codigo-bloque code {
-      font-family: 'Courier New', monospace;
-      font-size: 0.88rem;
-      color: var(--teal);
-      white-space: pre;
-    }
+    @media (max-width: 580px) { .extra-grid { grid-template-columns: 1fr; } }
 
-    /* ── CTA FINAL — ENLACE AL PROYECTO ── */
+    .extra-box {
+      border-radius: 16px;
+      padding: 1.75rem;
+    }
+    .extra-box.tips  { background: var(--negro); color: var(--blanco); }
+    .extra-box.ideas { background: var(--amarillo); color: #3a2a00; }
+    .extra-box h2    { font-size: 1rem; font-weight: 800; margin-bottom: 1rem; }
+    .extra-box ul    { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .extra-box li    { font-size: 0.88rem; font-weight: 600; line-height: 1.55; padding-left: 1.2rem; position: relative; }
+    .extra-box li::before { content: '→'; position: absolute; left: 0; font-weight: 800; }
+    .extra-box.tips li  { color: rgba(255,255,255,0.8); }
+    .extra-box.tips li::before { color: var(--teal); }
+    .extra-box.ideas li::before { color: #7a4a00; }
+
+    /* ── EXTRA ARTÍSTICO ── */
+    .artistico {
+      background: var(--coral);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (max-width: 580px) { .artistico { grid-template-columns: 1fr; } }
+    .artistico-texto h2  { font-size: 1.15rem; font-weight: 800; color: var(--blanco); margin-bottom: 0.75rem; }
+    .artistico-texto p   { font-size: 0.9rem; color: rgba(255,255,255,0.85); font-weight: 600; line-height: 1.6; }
+    .artistico-img {
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      overflow: hidden;
+    }
+    /* 🔧 Para la foto del extra artístico:
+       <img src="../img/emociones-extra.jpg"
+            alt="Dibujos del alumnado con micro:bit"
+            style="width:100%; object-fit:cover; border-radius:12px;" /> */
+    .artistico-img img { width: 100%; border-radius: 12px; object-fit: cover; }
+
+    /* ── CTA FINAL ── */
     .cta-proyecto {
       background: var(--negro);
       border-radius: 20px;
@@ -322,17 +316,8 @@
       text-align: center;
       margin-bottom: 3rem;
     }
-    .cta-proyecto h2 {
-      color: var(--blanco);
-      font-size: 1.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-    }
-    .cta-proyecto p {
-      color: rgba(255,255,255,0.55);
-      font-size: 0.95rem;
-      margin-bottom: 1.75rem;
-    }
+    .cta-proyecto h2 { color: var(--blanco); font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .cta-proyecto p  { color: rgba(255,255,255,0.55); font-size: 0.95rem; margin-bottom: 1.75rem; }
     .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn-makecode {
       background: var(--acento);
@@ -358,13 +343,7 @@
     .btn-volver:hover { border-color: rgba(255,255,255,0.6); }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--negro);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.85rem;
-      color: #555;
-    }
+    footer { background: var(--negro); text-align: center; padding: 2rem; font-size: 0.85rem; color: #555; }
     footer a { color: var(--teal); text-decoration: none; }
   </style>
 </head>
@@ -376,19 +355,18 @@
     <a href="https://instagram.com/microbital" target="_blank" class="ig-btn">@microbital</a>
   </nav>
 
-  <!-- ========== CABECERA DEL PROYECTO ========== -->
+  <!-- ========== CABECERA ========== -->
   <header class="proyecto-header">
     <div class="header-inner">
       <p class="breadcrumb"><a href="../index.html">microbital</a> › Proyectos › Primaria</p>
       <span class="nivel-pill">Primaria</span>
-      <!-- 🔧 Cambia el título y la descripción -->
       <h1>Expresa tus emociones</h1>
-      <p class="descripcion">La placa micro:bit muestra en su pantalla distintas caritas que representan emociones, dependiendo de su posición.</p>
+      <p class="descripcion">Relaciona las posiciones de la micro:bit con distintas emociones. ¡La placa muestra una carita diferente según cómo la inclines!</p>
       <div class="meta-chips">
-        <!-- 🔧 Cambia los chips a tu gusto: dificultad, tiempo, herramienta... -->
         <span class="chip">🧩 MakeCode bloques</span>
-        <span class="chip">⏱ 55 min</span>
-        <span class="chip">📅 Abr 2026</span>
+        <span class="chip">⏱ 30–45 min</span>
+        <span class="chip">📅 Abr 2025</span>
+        <span class="chip">🌐 ES · EN próximamente</span>
       </div>
     </div>
   </header>
@@ -396,113 +374,176 @@
   <!-- ========== CONTENIDO ========== -->
   <main class="contenido">
 
-    <!-- RESUMEN / ¿QUÉ VOY A APRENDER? -->
+    <!-- ¿QUÉ VAMOS A HACER? -->
     <div class="resumen-box">
-      <strong>¿Qué vas a aprender con este proyecto?</strong>
-      <!-- 🔧 Escribe aquí en 2-3 frases qué aprenderá el docente o el alumnado -->
-      Aprenderás a usar el acelerómetro de la micro:bit para detectar la inclinación de la placa y mostrar una imagen diferente según la posición. También practicarás el uso de iconos y sonidos.
+      <strong>¿Qué vamos a hacer?</strong>
+      Relacionar posiciones de la micro:bit con emociones. Dependiendo de cómo inclines la placa, se mostrará en su pantalla de LEDs una carita diferente y, si quieres, también sonará una melodía asociada a esa emoción.
     </div>
 
-    <!-- MATERIALES -->
-    <div class="materiales">
-      <h2>Materiales necesarios</h2>
-      <ul>
-        <!-- 🔧 Añade o quita materiales según el proyecto -->
-        <li>1 placa micro:bit</li>
-        <li>Cable USB o portapilas</li>
-        <li>Ordenador con navegador web (para MakeCode)</li>
-      </ul>
-      <h2>Componentes utilizados</h2>
-      <ul>
-        <li>Zumbador</li>
-        <li>Acelerómetro</li>
-        <li>Pantalla de LED</li>
-      </ul>
+    <!-- COMPONENTES + ASIGNATURAS -->
+    <div class="info-grid">
+      <div class="info-box">
+        <h2>🧰 Componentes necesarios</h2>
+        <ul>
+          <li>Tarjeta micro:bit</li>
+          <li>Pantalla de LED (incorporada)</li>
+          <li>Zumbador (incorporado en v2)</li>
+          <li>Acelerómetro (incorporado)</li>
+          <li>Cable USB u ordenador con MakeCode</li>
+        </ul>
+      </div>
+      <div class="info-box asig-box">
+        <h2>📚 ¿En qué asignatura lo trabajo?</h2>
+        <ul>
+          <li><strong>Ed. Artística</strong> — diseño de iconos y expresión de emociones</li>
+          <li><strong>Matemáticas</strong> — condicionales, secuencias y resolución de problemas</li>
+          <li><strong>Lengua</strong> — identificación de emociones y reacción ante estímulos</li>
+        </ul>
+      </div>
     </div>
 
     <!-- PASO A PASO -->
     <h2 class="seccion-titulo">Paso a paso</h2>
     <div class="pasos">
 
-      <!-- ====== PASO 1 ====== -->
+      <!-- PASO 1 -->
       <div class="paso">
         <div class="paso-imagen">
-          <!-- 🔧 IMAGEN DEL PASO 1
-               Cuando tengas la captura, sustituye el emoji por:
-               <img src="../img/emociones-paso1.png" alt="Paso 1: pantalla de inicio en MakeCode" />
-               Ver instrucciones completas de imágenes más arriba en el CSS.
+          <!-- 🔧 Sustituye por:
+          <img src="../img/emociones-paso1.png"
+               alt="Bloque Al iniciar con mostrar ícono en MakeCode"
+               style="width:90%; object-fit:contain; padding:1rem;" />
           -->
-          <span class="placeholder">🖥️</span>
+          <span class="placeholder"><img src="../img/1expresaemociones.png"
+               alt="Bloque Al iniciar con mostrar ícono en MakeCode"
+               style="width:90%; object-fit:contain; padding:1rem;" /></span>
         </div>
         <div class="paso-texto">
           <span class="paso-num">1</span>
-          <h3>Abre MakeCode y crea un proyecto nuevo</h3>
-          <p>Entra en <strong>makecode.microbit.org</strong>, haz clic en "Nuevo proyecto" y ponle un nombre, por ejemplo: <em>mis-emociones</em>.</p>
+          <h3>Añade un icono en "Al iniciar"</h3>
+          <p>Dentro del bloque <strong>"Al iniciar"</strong>, añade <strong>"mostrar ícono"</strong> (categoría Básico). Así, cuando enciendas la micro:bit, aparecerá una imagen y sabrás que la programación se ha cargado correctamente.</p>
+          <div class="nota">💡 Elige el icono que quieras — un corazón, una cara, una estrella... ¡Lo que más te guste!</div>
         </div>
       </div>
 
-      <!-- ====== PASO 2 ====== -->
+      <!-- PASO 2 -->
       <div class="paso">
         <div class="paso-imagen">
-          <span class="placeholder">📦</span>
+          <!-- 🔧 Sustituye por:
+          <img src="../img/emociones-paso2.png"
+               alt="Bloque Si agitado en MakeCode"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🟣</span>
         </div>
         <div class="paso-texto">
           <span class="paso-num">2</span>
-          <!-- 🔧 Título del paso -->
-          <h3>Añade los bloques de entrada</h3>
-          <!-- 🔧 Descripción del paso -->
-          <p>Ve a la categoría <strong>Entrada</strong> y arrastra el bloque "cuando se agita" al área de trabajo. Este bloque se ejecutará cada vez que muevamos la placa.</p>
-          <div class="nota">💡 También puedes usar "al inclinar" para detectar la dirección exacta.</div>
+          <h3>Busca el bloque del acelerómetro</h3>
+          <p>Ve a la categoría <strong>"Entrada"</strong> y busca el bloque <strong>"si agitado"</strong>. Este bloque detecta el movimiento de la placa y es el punto de partida para trabajar con el acelerómetro.</p>
+          <div class="nota">💡 El desplegable del bloque permite cambiar "agitado" por otras posiciones: logotipo hacia arriba, logotipo hacia abajo, pantalla hacia abajo...</div>
         </div>
       </div>
 
-      <!-- ====== PASO 3 ====== -->
+      <!-- PASO 3 -->
       <div class="paso">
         <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/emociones-paso3.png"
+               alt="Bloques con posiciones y emociones en MakeCode"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
           <span class="placeholder">😊</span>
         </div>
         <div class="paso-texto">
           <span class="paso-num">3</span>
-          <h3>Muestra una carita según la posición</h3>
-          <p>Dentro del bloque de inclinación, usa <strong>Básico › mostrar icono</strong> para mostrar una cara feliz, triste o sorprendida según la dirección.</p>
+          <h3>Asigna una emoción a cada posición</h3>
+          <p>Modifica el bloque <strong>"si agitado"</strong> para elegir una posición concreta (por ejemplo, <em>logotipo hacia arriba</em>). Dentro del bloque, añade <strong>"mostrar ícono"</strong> con una carita que represente la emoción, o déjalo en manos de tu alumnado.</p>
+          <p style="margin-top:0.5rem;">Si quieres, añade también un sonido con <strong>"reproducir melodía"</strong> que se asocie a esa emoción.</p>
+          <div class="nota">💡 Usa "mostrar LEDs" en lugar de "mostrar ícono" si quieres que el alumnado dibuje su propia carita píxel a píxel.</div>
         </div>
       </div>
 
-      <!-- ====== PASO 4 ====== -->
+      <!-- PASO 4 -->
       <div class="paso">
         <div class="paso-imagen">
-          <span class="placeholder">⬇️</span>
+          <!-- 🔧 Sustituye por:
+          <img src="../img/emociones-paso4.png"
+               alt="Varios bloques de posiciones en MakeCode"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">➕</span>
         </div>
         <div class="paso-texto">
           <span class="paso-num">4</span>
-          <h3>Descarga el programa a tu micro:bit</h3>
-          <p>Haz clic en el botón morado <strong>"Descargar"</strong> en la parte inferior de MakeCode. Conecta tu micro:bit al ordenador con el cable USB y copia el archivo .hex a la placa.</p>
-          <div class="nota">💡 Si tu micro:bit es v2, también puedes usar la transferencia directa por WebUSB.</div>
+          <h3>Añade tantas emociones como quieras</h3>
+          <p>Repite el proceso para cada posición: <em>logotipo hacia abajo</em>, <em>pantalla hacia abajo</em>, <em>agitado</em>... El número de emociones dependerá del tiempo disponible y de la madurez de tus estudiantes.</p>
+          <div class="nota">💡 Con 3 o 4 posiciones ya tienes una actividad muy completa. No hace falta llegar a todas las posibles.</div>
         </div>
       </div>
 
-      <!-- ====== PASO 5 ====== -->
+      <!-- PASO 5 -->
       <div class="paso">
         <div class="paso-imagen">
-          <span class="placeholder">🎉</span>
+          <!-- 🔧 Sustituye por:
+          <img src="../img/emociones-paso5.png"
+               alt="Simulador de micro:bit con botón Shake"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🔌</span>
         </div>
         <div class="paso-texto">
           <span class="paso-num">5</span>
-          <h3>¡Pruébalo!</h3>
-          <p>Inclina la placa en distintas direcciones y observa cómo cambian las caritas. Si algo no funciona, revisa que cada bloque "al inclinar" tiene su propia imagen asignada.</p>
+          <h3>Descarga y prueba el proyecto</h3>
+          <p>Conecta la micro:bit al ordenador con el cable USB, emparéjala con MakeCode y pulsa <strong>"Descargar"</strong> para transferir el programa a la placa.</p>
+          <p style="margin-top:0.5rem;">Si no tienes la placa a mano, pruébalo en el <strong>simulador</strong> de MakeCode. Aparecerá un botón <strong>"Shake"</strong> para simular el movimiento.</p>
+          <div class="nota">💡 En micro:bit v2 puedes usar la transferencia directa por WebUSB para ir más rápido.</div>
         </div>
       </div>
 
-      <!-- 🔧 Para añadir más pasos, copia el bloque completo de .paso y pégalo aquí -->
-
     </div><!-- fin .pasos -->
 
-    <!-- CTA FINAL — ENLACE AL PROYECTO EN MAKECODE -->
+    <!-- TIPS + IDEAS -->
+    <div class="extra-grid">
+      <div class="extra-box tips">
+        <h2>💡 Tips del docente</h2>
+        <ul>
+          <li>Prepara el material antes de clase y comprueba que las micro:bit se emparejan correctamente con los ordenadores.</li>
+          <li>Descarga un mini programa de prueba previo (un icono en "Al iniciar") para asegurarte de que todo funciona.</li>
+          <li>Usa ordenador en lugar de tablet — será mucho más fácil descargar el programa a la placa.</li>
+        </ul>
+      </div>
+      <div class="extra-box ideas">
+        <h2>🚀 Ideas para ir más allá</h2>
+        <ul>
+          <li>Si quieres que sea menos guiado, pide al alumnado que asocie ellos mismos un movimiento a una emoción y que expliquen por qué.</li>
+          <li>Pueden crear su propia melodía en lugar de usar una de las que vienen ya hechas.</li>
+          <li>Si dominan el ratón, deja que dibujen su propia carita con el bloque "Mostrar LEDs".</li>
+          <li>La actividad puede hacerse de manera individual o en grupo.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- EXTRA ARTÍSTICO -->
+    <div class="artistico">
+      <div class="artistico-texto">
+        <h2>🎨 Extra artístico</h2>
+        <p>¿Y si la micro:bit fuera la carita de un personaje inventado por tu alumnado? Pueden dibujar un cuerpo alrededor de la placa y hacer que las emociones cobren vida de una forma completamente única y personal.</p>
+      </div>
+      <div class="artistico-img">
+        <!-- 🔧 Sustituye por la foto real de los dibujos del alumnado:
+        <img src="../img/emociones-extra.jpg"
+             alt="Dibujos del alumnado con micro:bit como cara del personaje"
+             style="width:100%; object-fit:cover; border-radius:12px;" />
+        -->
+        <span>🎨</span>
+      </div>
+    </div>
+
+    <!-- CTA FINAL -->
     <div class="cta-proyecto">
       <h2>¿Listo para programarlo? 🚀</h2>
-      <p>Abre el proyecto directamente en MakeCode y empieza a experimentar.</p>
+      <p>Abre el proyecto directamente en MakeCode y empieza a experimentar con tus emociones.</p>
       <div class="cta-btns">
-        <!-- 🔧 Sustituye el href por el enlace real de tu proyecto en MakeCode -->
         <a href="https://makecode.microbit.org/S91348-75093-03049-45934" target="_blank" class="btn-makecode">Abrir en MakeCode →</a>
         <a href="../index.html" class="btn-volver">← Volver a proyectos</a>
       </div>
@@ -517,4 +558,3 @@
 
 </body>
 </html>
-
