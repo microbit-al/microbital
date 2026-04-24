@@ -387,6 +387,19 @@
 .card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, opacity 0.3s; }
 .card.oculta { display: none; }
     /* ACABA AQUÍ */
+
+    /* ── FILTRADO ── */
+.nivel-card { cursor: pointer; transition: transform 0.15s; }
+.nivel-card:hover { transform: translateY(-3px); }
+.nivel-card.activo { outline: 3px solid white; outline-offset: 4px; }
+.card.oculta { display: none; }
+
+/* Evita que las tarjetas visibles se estiren al filtrar */
+.proyectos-grid {
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  align-items: start;
+  justify-content: start;
+}
     
   </style>
 </head>
@@ -421,30 +434,22 @@
   </div>
 -->
   <!-- ========== NIVELES ========== -->
- <div class="niveles-wrapper">
-    <div class="niveles-inner">
-      <p class="section-label">Sistema de niveles</p>
-      <h2>¿Para quién es cada proyecto?</h2>
-      <div class="niveles">
-        <div class="nivel-card n1">
-          <span class="titulo"> Primaria </span>
-          Para el aula de Primaria. Simples pero bastante completos.
-        </div>
-        <div class="nivel-card n2">
-          <span class="titulo"> Secundaria </span>
-          Para el aula de Secundaria. Un poco más avanzados.
-        </div>
-        <div class="nivel-card n3">
-          <span class="titulo"> Clase </span>
-          Proyectos para gestionar tu aula.
-        </div>
-         <div class="nivel-card n4">
-          <span class="titulo"> Todos </span>
-          Proyectos que se pueden utilizar en cualquier clase de cualquier nivel.
-        </div>
-      </div>
-    </div>
-  </div>
+ <div class="nivel-card n1" data-filter="card_primaria">
+  <span class="titulo">Primaria</span>
+  Para el aula de Primaria. Simples pero bastante completos.
+</div>
+<div class="nivel-card n2" data-filter="card_secundaria">
+  <span class="titulo">Secundaria</span>
+  Para el aula de Secundaria. Un poco más avanzados.
+</div>
+<div class="nivel-card n3" data-filter="card_clase">
+  <span class="titulo">Clase</span>
+  Proyectos para gestionar tu aula.
+</div>
+<div class="nivel-card n4" data-filter="card_todos">
+  <span class="titulo">Todos</span>
+  Proyectos que se pueden utilizar en cualquier clase de cualquier nivel.
+</div>
 
   <!-- ========== PROYECTOS ========== -->
   <section id="proyectos">
@@ -548,26 +553,27 @@
   </footer>
 
   <!--  Aquí está el código en JS que hace que se filtre por niveles de proyectos -->
-  <script>
-  const niveles = document.querySelectorAll('.nivel-card[data-filter]');
-  const tarjetas = document.querySelectorAll('.proyectos-grid .card');
+  
+<script>
+  document.querySelectorAll('.nivel-card[data-filter]').forEach(function(nivel) {
+    nivel.addEventListener('click', function() {
+      var filtro = this.getAttribute('data-filter');
+      var yaActivo = this.classList.contains('activo');
+      var tarjetas = document.querySelectorAll('.proyectos-grid .card');
+      var niveles = document.querySelectorAll('.nivel-card[data-filter]');
 
-  niveles.forEach(nivel => {
-    nivel.addEventListener('click', () => {
-      const filtro = nivel.dataset.filter;
-      const yaActivo = nivel.classList.contains('activo');
-
-      // Quitar estado activo de todos
-      niveles.forEach(n => n.classList.remove('activo'));
+      niveles.forEach(function(n) { n.classList.remove('activo'); });
 
       if (yaActivo) {
-        // Si ya estaba activo, mostrar todas
-        tarjetas.forEach(t => t.classList.remove('oculta'));
+        tarjetas.forEach(function(t) { t.classList.remove('oculta'); });
       } else {
-        // Activar este y filtrar
         nivel.classList.add('activo');
-        tarjetas.forEach(t => {
-          t.classList.toggle('oculta', !t.classList.contains(filtro));
+        tarjetas.forEach(function(t) {
+          if (t.classList.contains(filtro)) {
+            t.classList.remove('oculta');
+          } else {
+            t.classList.add('oculta');
+          }
         });
       }
     });
