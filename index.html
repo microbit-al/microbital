@@ -67,7 +67,6 @@
     }
     nav a.ig-btn:hover { opacity: 0.85; }
 
-    
     /* ── HERO ── */
     .hero {
       background: linear-gradient(135deg, #1a0533 0%, #0d2a4a 50%, #0a3a2e 100%);
@@ -165,9 +164,9 @@
     }
     .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
 
-    
-    /* ── STATS ── */
-   .stats {
+    /* ── STATS (comentado, descomenta cuando quieras) ── */
+    /*
+    .stats {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -190,8 +189,9 @@
       font-weight: 600;
       color: rgba(0,0,0,0.6);
     }
+    */
 
- /* ── SECCIÓN genérica ── */
+    /* ── SECCIÓN genérica ── */
     section {
       max-width: 1100px;
       margin: 0 auto;
@@ -211,73 +211,87 @@
       margin-bottom: 2rem;
     }
 
-    
- /* ── NIVELES (fondo negro) ── */
+    /* ── NIVELES (fondo negro) ── */
     .niveles-wrapper {
       background: var(--negro);
       padding: 4rem 2rem;
     }
     .niveles-inner { max-width: 1100px; margin: 0 auto; }
     .niveles-inner .section-label { color: var(--teal); }
-    .niveles-inner h2 { color: var(--blanco); }
+    .niveles-inner h2 { color: var(--blanco); margin-bottom: 1rem; }
+    .niveles-inner .filtro-hint {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── 4 tarjetas en una fila ── */
     .niveles {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
-      }
+    }
     @media (max-width: 700px) {
-    .niveles { grid-template-columns: repeat(2, 1fr); }
-      }
+      .niveles { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 400px) {
+      .niveles { grid-template-columns: 1fr 1fr; }
+    }
+
     .nivel-card {
       border-radius: var(--radio);
       padding: 1.5rem;
       font-weight: 600;
       font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      user-select: none;
     }
+    .nivel-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+    .nivel-card.activo  { outline: 3px solid white; outline-offset: 4px; }
     .nivel-card .titulo { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; display: block; }
-    .n1 { background: var(--teal); color: #063d32; }
+    .n1 { background: var(--teal);    color: #063d32; }
     .n2 { background: var(--amarillo); color: #5a3a00; }
-    .n3 { background: var(--coral); color: #5a1000; }
-    .n4 { background: var(--morado); color: #491C57; }
-
-
-    /* data filter para filtrar al hacer clic sobre los niveles*/ 
-
-    <div class="nivel-card n1" data-filter="card_primaria">
-    <div class="nivel-card n2" data-filter="card_secundaria">
-    <div class="nivel-card n3" data-filter="card_clase">
-    <div class="nivel-card n4" data-filter="card_todos">
+    .n3 { background: var(--coral);   color: #5a1000; }
+    .n4 { background: var(--morado);  color: #491C57; }
 
     /* ── PROYECTOS ── */
+    /* Siempre 3 columnas fijas (2 en tablet, 1 en móvil) */
     .proyectos-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
       align-items: start;
-      }
-    @media (max-width: 900px) {
-    .proyectos-grid { grid-template-columns: repeat(2, 1fr); }
-      }
-    @media (max-width: 560px) {
-    .proyectos-grid { grid-template-columns: 1fr; }
-      }
+    }
+    @media (max-width: 860px) {
+      .proyectos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .proyectos-grid { grid-template-columns: 1fr; }
+    }
+
     .card {
       background: var(--blanco);
       border-radius: 16px;
       overflow: hidden;
       border: 2px solid transparent;
       transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      text-decoration: none;  /* por si envolvemos en <a> */
+      display: block;
+      color: inherit;
     }
-
     .card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
-    /* .card:nth-child(1) .card-thumb { background: #d6f5ef; }
-    .card:nth-child(2) .card-thumb { background: #ffe5b4; }
-    .card:nth-child(3) .card-thumb { background: #e8e0ff; }
-    .card:nth-child(4) .card-thumb { background: #fde8e3; }
-    .card:nth-child(1):hover { border-color: var(--teal); }
-    .card:nth-child(2):hover { border-color: var(--amarillo); }
-    .card:nth-child(3):hover { border-color: var(--morado); }
-    .card:nth-child(4):hover { border-color: var(--coral);} */
+    .card.oculta { display: none; }
+
+    /* Colores por nivel */
+    .card_primaria:hover   { border-color: var(--teal); }
+    .card_primaria .card-thumb { background: #d6f5ef; }
+    .card_secundaria:hover { border-color: var(--amarillo); }
+    .card_secundaria .card-thumb { background: #ffe5b4; }
+    .card_clase:hover      { border-color: var(--coral); }
+    .card_clase .card-thumb { background: #fde8e3; }
+    .card_todos:hover      { border-color: var(--morado); }
+    .card_todos .card-thumb { background: #e8e0ff; }
 
     .card-thumb {
       width: 100%;
@@ -288,33 +302,34 @@
       font-size: 3rem;
     }
     .card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
     .card-badge {
       display: inline-block;
       font-size: 0.75rem;
       font-weight: 700;
       padding: 0.25rem 0.8rem;
       border-radius: 100px;
-      margin-bottom: 0.75rem;
+    }
+    /* 🔧 Fecha del proyecto */
+    .card-fecha {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gris);
     }
 
-    .card_primaria:hover {border-color: var(--teal);}
-    .card_primaria .card-thumb {background: #d6f5ef;}
-
-    .card_secundaria:hover {border-color: var(--amarillo);}
-    .card_secundaria .card-thumb {background: #ffe5b4;}
-
-    .card_clase:hover {border-color: var(--coral);}
-    .card_clase .card-thumb {background: #fde8e3;}
-
-    .card_todos:hover {border-color: var(--morado);}
-    .card_todos .card-thumb {background: #e8e0ff;}
-    
     .badge-verde  { background: #d6f5ef; color: #0a6b59; }
     .badge-ambar  { background: #fff3d6; color: #7a4a00; }
     .badge-coral  { background: #fde8e3; color: #8a2a14; }
     .badge-morado { background: #ede8ff; color: #4a2f8a; }
+
     .card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; }
-    .card p { font-size: 0.9rem; color: var(--gris); margin-bottom: 1rem; line-height: 1.55; }
+    .card p  { font-size: 0.9rem; color: var(--gris); margin-bottom: 1rem; line-height: 1.55; }
     .card-link {
       font-size: 0.9rem;
       font-weight: 700;
@@ -326,7 +341,54 @@
     }
     .card-link:hover { color: var(--teal); }
 
-     /* ── ABOUT (fondo azul) ── */
+    /* ── NOVEDADES ── */
+    .novedades-wrapper {
+      background: var(--fondo);
+      border-top: 2px solid rgba(0,0,0,0.06);
+    }
+    .novedades-wrapper .section-label { color: var(--coral); }
+    .novedades-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .novedad {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      background: var(--blanco);
+      border-radius: 12px;
+      padding: 1.1rem 1.4rem;
+      border-left: 4px solid var(--teal);
+    }
+    .novedad.nueva  { border-left-color: var(--coral); }
+    .novedad.update { border-left-color: var(--amarillo); }
+    .novedad-fecha {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gris);
+      white-space: nowrap;
+      min-width: 80px;
+      padding-top: 2px;
+    }
+    .novedad-texto strong { display: block; font-size: 0.95rem; font-weight: 800; margin-bottom: 0.15rem; }
+    .novedad-texto span   { font-size: 0.88rem; color: var(--gris); }
+    .novedad-pill {
+      margin-left: auto;
+      align-self: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.7rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pill-nuevo    { background: #fde8e3; color: #8a2a14; }
+    .pill-proyecto { background: #d6f5ef; color: #0a6b59; }
+    .pill-update   { background: #fff3d6; color: #7a4a00; }
+
+    /* ── ABOUT (fondo azul) ── */
     .about-wrapper {
       background: var(--azul);
       padding: 4rem 2rem;
@@ -356,9 +418,9 @@
       filter: brightness(0) invert(1);
       opacity: 0.9;
     }
-    .about-visual .año { font-size: 3.5rem; font-weight: 800; color: var(--amarillo); line-height: 1; margin-bottom: 0.25rem; }
+    .about-visual .año      { font-size: 3.5rem; font-weight: 800; color: var(--amarillo); line-height: 1; margin-bottom: 0.25rem; }
     .about-visual .champion { font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 0.05em; text-transform: uppercase; }
-    
+
     /* ── CTA INSTAGRAM (fondo coral) ── */
     .ig-cta {
       background: var(--coral);
@@ -366,7 +428,7 @@
       text-align: center;
     }
     .ig-cta h2 { color: var(--blanco); font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 0.75rem; }
-    .ig-cta p { color: rgba(255,255,255,0.75); margin-bottom: 2rem; font-size: 1.05rem; }
+    .ig-cta p  { color: rgba(255,255,255,0.75); margin-bottom: 2rem; font-size: 1.05rem; }
     .ig-cta a {
       background: var(--blanco);
       color: var(--coral);
@@ -377,8 +439,8 @@
       transition: opacity 0.2s;
     }
     .ig-cta a:hover { opacity: 0.9; }
- 
-     /* ── FOOTER ── */
+
+    /* ── FOOTER ── */
     footer {
       background: var(--negro);
       text-align: center;
@@ -387,45 +449,23 @@
       color: #555;
     }
     footer a { color: var(--teal); text-decoration: none; }
- 
+
     @media (max-width: 480px) { .stat { padding: 1.25rem 1.5rem; } }
-
-    /* PARA LOS FILTROS POR CATEGORÍA*/
-.nivel-card { cursor: pointer; transition: transform 0.15s, opacity 0.15s; }
-.nivel-card:hover { transform: translateY(-3px); }
-.nivel-card.activo { outline: 3px solid white; outline-offset: 3px; }
-.card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, opacity 0.3s; }
-.card.oculta { display: none; }
-    /* ACABA AQUÍ */
-
-    /* ── FILTRADO ── */
-.nivel-card { cursor: pointer; transition: transform 0.15s; }
-.nivel-card:hover { transform: translateY(-3px); }
-.nivel-card.activo { outline: 3px solid white; outline-offset: 4px; }
-.card.oculta { display: none; }
-
-/* Evita que las tarjetas visibles se estiren al filtrar */
-.proyectos-grid {
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  align-items: start;
-  justify-content: start;
-}
-    
   </style>
 </head>
-<body> <!-- AQUÍ EMPIEZA EL CUERPO -->
+<body>
 
- <!-- ========== NAV ========== -->
+  <!-- ========== NAV ========== -->
   <nav>
     <a href="#" class="logo">micro<span>bital</span></a>
     <!-- 🔧 Cambia el enlace de Instagram -->
     <a href="https://instagram.com/microbital" target="_blank" class="ig-btn">@microbital</a>
   </nav>
- 
+
   <!-- ========== HERO ========== -->
   <header class="hero">
-    <!-- 🔧 Cambia logo.png por el nombre exacto de tu archivo subido a GitHub -->
-    <img src="logo.png" alt="microbital" class="hero-logo" align="center" /><br>
+    <!-- 🔧 Cambia logo.png por el nombre exacto de tu archivo en GitHub -->
+    <img src="logo.png" alt="microbital" class="hero-logo" />
     <div class="hero-tag">Proyectos educativos con micro:bit</div>
     <h1>Aprende, crea y <em>programa</em> con <strong>micro:bit</strong></h1>
     <p>Recursos y proyectos para docentes de Primaria y Secundaria. ¡Lleva la programación al aula!</p>
@@ -435,31 +475,41 @@
     </div>
   </header>
 
-  <!-- ========== STATS ========== 
-  <!-- 🔧 Cambia los números cuando quieras
+  <!-- ========== STATS (descomenta cuando quieras activarlo) ==========
   <div class="stats">
     <div class="stat"><strong>3</strong><small>Niveles de dificultad</small></div>
     <div class="stat"><strong>0</strong><small>Proyectos publicados</small></div>
     <div class="stat"><strong>2</strong><small>Idiomas: ES / EN</small></div>
   </div>
--->
+  -->
+
   <!-- ========== NIVELES ========== -->
- <div class="nivel-card n1" data-filter="card_primaria">
-  <span class="titulo">Primaria</span>
-  Para el aula de Primaria. Simples pero bastante completos.
-</div>
-<div class="nivel-card n2" data-filter="card_secundaria">
-  <span class="titulo">Secundaria</span>
-  Para el aula de Secundaria. Un poco más avanzados.
-</div>
-<div class="nivel-card n3" data-filter="card_clase">
-  <span class="titulo">Clase</span>
-  Proyectos para gestionar tu aula.
-</div>
-<div class="nivel-card n4" data-filter="card_todos">
-  <span class="titulo">Todos</span>
-  Proyectos que se pueden utilizar en cualquier clase de cualquier nivel.
-</div>
+  <div class="niveles-wrapper">
+    <div class="niveles-inner">
+      <p class="section-label">Sistema de niveles</p>
+      <h2>¿Para quién es cada proyecto?</h2>
+      <p class="filtro-hint">💡 Pulsa sobre un nivel para filtrar los proyectos</p>
+      <div class="niveles">
+        <!-- data-filter debe coincidir EXACTAMENTE con la clase CSS de las tarjetas -->
+        <div class="nivel-card n1" data-filter="card_primaria">
+          <span class="titulo">Primaria</span>
+          Para el aula de Primaria. Simples pero bastante completos.
+        </div>
+        <div class="nivel-card n2" data-filter="card_secundaria">
+          <span class="titulo">Secundaria</span>
+          Para el aula de Secundaria. Un poco más avanzados.
+        </div>
+        <div class="nivel-card n3" data-filter="card_clase">
+          <span class="titulo">Clase</span>
+          Proyectos para gestionar tu aula.
+        </div>
+        <div class="nivel-card n4" data-filter="card_todos">
+          <span class="titulo">Todos</span>
+          Proyectos que se pueden utilizar en cualquier clase de cualquier nivel.
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ========== PROYECTOS ========== -->
   <section id="proyectos">
@@ -467,81 +517,143 @@
     <h2>Explora los proyectos</h2>
     <div class="proyectos-grid">
 
-      <!-- OTRA TARJETA -->
-      <article class="card card_primaria">
-        <div class="card-thumb">🎭​</div>
-        <div class="card-body">
-          <span class="card-badge badge-verde">Primaria</span>
-          <h3>Expresa tus emociones</h3>
-          <p> La placa micro:bit muestra en su pantalla distintas caritas que representan emociones, dependiendo de su posición.</p>
-          <!-- 🔧 Cambia el href por el enlace de tu proyecto en MakeCode o donde lo tengas -->
-          <a href="https://makecode.microbit.org/S91348-75093-03049-45934" class="card-link">Ver proyecto →</a>
-        </div>
-      </article>
-      <!-- FIN TARJETA -->
+      <!-- ====================================================
+           🔧 CÓMO ENLAZAR UNA TARJETA A SU PÁGINA DE TUTORIAL
+           Cambia el href="..." por la ruta a tu archivo HTML.
+           Ejemplo: href="proyectos/expresa-emociones.html"
+           ==================================================== -->
 
-      <!-- 🔧 OTRA TARJETA -->
-      <article class="card card_clase">
-        <div class="card-thumb">🔮​</div>
+      <a href="proyectos/expresa-emociones.html" class="card card_primaria">
+        <div class="card-thumb">🎭</div>
         <div class="card-body">
-          <span class="card-badge badge-coral">Clase</span>
+          <div class="card-meta">
+            <span class="card-badge badge-verde">Primaria</span>
+            <!-- 🔧 Cambia la fecha por la real -->
+            <span class="card-fecha">Abr 2025</span>
+          </div>
+          <h3>Expresa tus emociones</h3>
+          <p>La placa micro:bit muestra en su pantalla distintas caritas que representan emociones, dependiendo de su posición.</p>
+          <span class="card-link">Ver proyecto →</span>
+        </div>
+      </a>
+
+      <a href="proyectos/alumno-al-azar.html" class="card card_clase">
+        <div class="card-thumb">🔮</div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-badge badge-coral">Clase</span>
+            <span class="card-fecha">Abr 2025</span>
+          </div>
           <h3>Elige una persona al azar entre tu alumnado</h3>
           <p>Herramienta que muestra un/a alumno/a al azar de una lista dada.</p>
-          <a href="https://makecode.microbit.org/S54733-89655-68204-53618" class="card-link">Ver proyecto →</a>
+          <span class="card-link">Ver proyecto →</span>
         </div>
-      </article>
-      <!-- FIN TARJETA -->
+      </a>
 
-      <!-- 🔧 TARJETA VACÍA — Rellena cuando tengas nuevo proyecto -->
-      <article class="card card_secundaria">
-        <div class="card-thumb">​📡​</div>
+      <a href="proyectos/codigo-morse.html" class="card card_secundaria">
+        <div class="card-thumb">📡</div>
         <div class="card-body">
-          <span class="card-badge badge-ambar">Secundaria</span>
+          <div class="card-meta">
+            <span class="card-badge badge-ambar">Secundaria</span>
+            <span class="card-fecha">May 2025</span>
+          </div>
           <h3>Código Morse a distancia</h3>
-          <p>Programa en el cual, insertamos código Morse en una tarjeta emisora, y la tarjeta receptora lo decodifica para mostrar la palabra con el alfabeto latino.</p>
-          <a href="https://makecode.microbit.org/S66794-63262-45594-13681" class="card-link">Ver proyecto tarjeta EMISORA →</a><br>
-          <a href="https://makecode.microbit.org/S30343-03397-79021-49275" class="card-link">Ver proyecto tarjeta RECEPTORA →</a>
+          <p>Programa en el cual insertamos código Morse en una tarjeta emisora, y la tarjeta receptora lo decodifica para mostrar la palabra con el alfabeto latino.</p>
+          <span class="card-link">Ver proyecto →</span>
         </div>
-      </article>
+      </a>
 
-       <!-- 🔧 OTRA TARJETA -->
-      <article class="card card_todos">
+      <a href="proyectos/dia-del-libro.html" class="card card_todos">
         <div class="card-thumb">📖</div>
         <div class="card-body">
-          <span class="card-badge badge-morado">Todos los niveles</span>
+          <div class="card-meta">
+            <span class="card-badge badge-morado">Todos los niveles</span>
+            <span class="card-fecha">Abr 2025</span>
+          </div>
           <h3>Especial Día del libro</h3>
-          <p>Creamos una ruleta de géneros literarios y una máquina de personajes para seleccionar aleatoriamente un elemento de ambas listas y dar rienda suelta a nuestra creatividad.</p>
-          <a href="https://makecode.microbit.org/S72761-21099-39083-94687" class="card-link">Ver proyecto →</a>
+          <p>Creamos una ruleta de géneros literarios y una máquina de personajes para seleccionar aleatoriamente un elemento de ambas listas.</p>
+          <span class="card-link">Ver proyecto →</span>
         </div>
-      </article>
-       
-      <!-- 🔧 TARJETA VACÍA — Rellena cuando tengas nuevo proyecto 
-      <article class="card">
+      </a>
+
+      <!-- 🔧 TARJETA VACÍA — Descomenta y rellena cuando tengas nuevo proyecto
+      <a href="proyectos/nuevo-proyecto.html" class="card card_primaria">
         <div class="card-thumb">✨</div>
         <div class="card-body">
-          <span class="card-badge badge-verde">Nivel 1</span>
+          <div class="card-meta">
+            <span class="card-badge badge-verde">Primaria</span>
+            <span class="card-fecha">Jun 2025</span>
+          </div>
           <h3>Próximamente...</h3>
           <p>Nuevo proyecto en camino. Síguenos en Instagram para no perdértelo.</p>
-          <a href="https://instagram.com/microbital" class="card-link">Seguir en IG →</a>
+          <span class="card-link">Seguir en IG →</span>
         </div>
-      </article>
--->
+      </a>
+      -->
+
     </div>
   </section>
 
+  <!-- ========== NOVEDADES ========== -->
+  <div class="novedades-wrapper">
+    <section>
+      <p class="section-label">Novedades</p>
+      <h2>Últimas actualizaciones</h2>
+      <div class="novedades-lista">
+
+        <!-- 🔧 CÓMO AÑADIR UNA NOVEDAD:
+             Copia un bloque .novedad y cambia:
+             - La clase extra: (sin clase) = azul teal | .nueva = coral | .update = amarillo
+             - .novedad-fecha: la fecha en texto
+             - .novedad-texto strong: el título corto
+             - .novedad-texto span: la descripción
+             - .novedad-pill + clase pill-*: la etiqueta de la derecha
+             Las novedades más recientes van arriba.
+        -->
+
+        <div class="novedad nueva">
+          <span class="novedad-fecha">May 2025</span>
+          <div class="novedad-texto">
+            <strong>Nuevo proyecto: Código Morse a distancia</strong>
+            <span>Aprende a comunicarte sin cables usando las radios de dos micro:bit. Ideal para Secundaria.</span>
+          </div>
+          <span class="novedad-pill pill-nuevo">Nuevo</span>
+        </div>
+
+        <div class="novedad">
+          <span class="novedad-fecha">Abr 2025</span>
+          <div class="novedad-texto">
+            <strong>Especial Día del libro</strong>
+            <span>Proyecto para todas las aulas: ruleta de géneros literarios y máquina de personajes aleatoria.</span>
+          </div>
+          <span class="novedad-pill pill-proyecto">Proyecto</span>
+        </div>
+
+        <div class="novedad">
+          <span class="novedad-fecha">Abr 2025</span>
+          <div class="novedad-texto">
+            <strong>microbital ya está en línea 🎉</strong>
+            <span>Arranca el proyecto con los primeros dos proyectos: Expresa tus emociones y Elige alumno al azar.</span>
+          </div>
+          <span class="novedad-pill pill-proyecto">Inicio</span>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
   <!-- ========== SOBRE ========== -->
-   <div class="about-wrapper" id="sobre">
+  <div class="about-wrapper" id="sobre">
     <div class="about-inner">
       <div class="about-text">
         <p class="section-label">Sobre microbital</p>
         <h2>¿Qué es microbital?</h2>
-        <!-- 🔧 Edita esta descripción a tu gusto -->
         <p>Microbit AL es un proyecto de divulgación educativa centrado en la placa micro:bit, un cerebrito pensado para aprender a programar por bloques desde cero.</p>
         <p>Aquí encontrarás proyectos, recursos y actividades diseñados para docentes de Primaria y Secundaria que quieren llevar la programación y la robótica al aula de forma sencilla y motivadora.</p>
-        <p>Detrás de esta aventura está Ana Lucía Guerrero, maestra de inglés, que actualmente desempeña el puesto de Mentora de Código Escuela 4.0 en la Junta de Extremadura</p>
-        <p>Contenido disponible en castellano y <strong> próximamente, en inglés</strong>.</p>
+        <p>Detrás de esta aventura está Ana Lucía Guerrero, maestra de inglés, que actualmente desempeña el puesto de Mentora de Código Escuela 4.0 en la Junta de Extremadura.</p>
+        <p>Contenido disponible en castellano y <strong>próximamente, en inglés</strong>.</p>
       </div>
-    <div class="about-visual">
+      <div class="about-visual">
         <!-- 🔧 Cambia logo.png por el nombre de tu archivo -->
         <img src="logo.png" alt="microbital" class="about-logo" />
         <div class="año">2026</div>
@@ -550,45 +662,49 @@
     </div>
   </div>
 
- <div class="ig-cta">
+  <!-- ========== CTA INSTAGRAM ========== -->
+  <div class="ig-cta">
     <h2>¿Quieres más contenido?</h2>
     <p>Cada semana nuevos proyectos, trucos y recursos en Instagram.</p>
     <!-- 🔧 Cambia el enlace -->
     <a href="https://instagram.com/microbital" target="_blank">Seguir @microbital</a>
   </div>
- 
+
   <!-- ========== FOOTER ========== -->
   <footer>
     <p>microbital · <a href="https://instagram.com/microbital" target="_blank">@microbital</a> · Hecho con ♥ y micro:bit</p>
   </footer>
 
-  <!--  Aquí está el código en JS que hace que se filtre por niveles de proyectos -->
-  
-<script>
-  document.querySelectorAll('.nivel-card[data-filter]').forEach(function(nivel) {
-    nivel.addEventListener('click', function() {
-      var filtro = this.getAttribute('data-filter');
-      var yaActivo = this.classList.contains('activo');
-      var tarjetas = document.querySelectorAll('.proyectos-grid .card');
-      var niveles = document.querySelectorAll('.nivel-card[data-filter]');
+  <!-- ========== FILTRADO POR NIVELES ========== -->
+  <script>
+    var niveles  = document.querySelectorAll('.nivel-card[data-filter]');
+    var tarjetas = document.querySelectorAll('.proyectos-grid .card');
 
-      niveles.forEach(function(n) { n.classList.remove('activo'); });
+    niveles.forEach(function(nivel) {
+      nivel.addEventListener('click', function() {
+        var filtro   = this.getAttribute('data-filter');
+        var yaActivo = this.classList.contains('activo');
 
-      if (yaActivo) {
-        tarjetas.forEach(function(t) { t.classList.remove('oculta'); });
-      } else {
-        nivel.classList.add('activo');
-        tarjetas.forEach(function(t) {
-          if (t.classList.contains(filtro)) {
-            t.classList.remove('oculta');
-          } else {
-            t.classList.add('oculta');
-          }
-        });
-      }
+        // Quitar estado activo de todos los niveles
+        niveles.forEach(function(n) { n.classList.remove('activo'); });
+
+        if (yaActivo) {
+          // Si ya estaba activo → mostrar todas las tarjetas
+          tarjetas.forEach(function(t) { t.classList.remove('oculta'); });
+        } else {
+          // Activar este nivel y ocultar las que no coincidan
+          nivel.classList.add('activo');
+          tarjetas.forEach(function(t) {
+            if (t.classList.contains(filtro)) {
+              t.classList.remove('oculta');
+            } else {
+              t.classList.add('oculta');
+            }
+          });
+        }
+      });
     });
-  });
-</script>
+  </script>
+
 </body>
 </html>
- 
