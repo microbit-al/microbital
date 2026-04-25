@@ -1,1 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Votación a distancia — microbital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --negro:    #111214;
+      --blanco:   #f8f7f3;
+      --teal:     #0fc4a7;
+      --amarillo: #ffc847;
+      --coral:    #ff5e41;
+      --morado:   #CE9EF7;
+      --azul:     #3a7bfd;
+      --fondo:    #f2f0eb;
+      --gris:     #888680;
+      --radio:    14px;
+      --acento:     #ff5e41;
+      --acento-bg:  #fde8e3;
+      --acento-txt: #5a1000;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--fondo);
+      color: var(--negro);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: var(--negro);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; color: var(--teal); text-decoration: none; }
+    .logo span { color: var(--blanco); }
+    nav a.ig-btn {
+      background: var(--teal);
+      color: var(--negro);
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    nav a.ig-btn:hover { opacity: 0.85; }
+
+    /* ── CABECERA ── */
+    .proyecto-header {
+      background: linear-gradient(135deg, #3a0010 0%, #1a0020 50%, #2a0a00 100%);
+      color: var(--blanco);
+      padding: 3.5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .proyecto-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,94,65,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+    .breadcrumb { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 1.25rem; }
+    .breadcrumb a { color: var(--coral); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .nivel-pill {
+      display: inline-block;
+      background: var(--acento);
+      color: var(--blanco);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+    .proyecto-header h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .proyecto-header .descripcion { font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 600px; margin-bottom: 1.75rem; }
+    .meta-chips { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .chip {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+    }
+
+    /* ── CONTENIDO ── */
+    .contenido { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+
+    /* ── RESUMEN ── */
+    .resumen-box {
+      background: var(--acento-bg);
+      border-left: 4px solid var(--acento);
+      border-radius: 0 12px 12px 0;
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 3rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--acento-txt);
+    }
+    .resumen-box strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; font-weight: 800; }
+
+    /* ── DOS COLUMNAS ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 580px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-box {
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 1.75rem;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .info-box h2 { font-size: 1rem; font-weight: 800; margin-bottom: 1rem; }
+    .info-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .info-box li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .info-box li::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px; height: 20px;
+      background: var(--acento);
+      color: var(--blanco);
+      border-radius: 50%;
+      font-size: 0.65rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .aporta-box li::before { background: var(--amarillo); color: #5a3a00; }
+
+    /* ── SEPARADOR DE SECCIÓN ── */
+    .seccion-titulo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 3px solid var(--acento);
+      display: inline-block;
+    }
+
+    /* ── ETIQUETA DE PARTE (emisora / receptora) ── */
+    .parte-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    .parte-label span {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+    }
+    .parte-comun    span { background: var(--negro); color: var(--blanco); }
+    .parte-emisora  span { background: var(--azul);  color: var(--blanco); }
+    .parte-receptora span { background: var(--morado); color: #3a006a; }
+    .parte-label::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: rgba(0,0,0,0.07);
+      border-radius: 2px;
+    }
+
+    /* ── PASOS ── */
+    .pasos { display: flex; flex-direction: column; gap: 2.5rem; margin-bottom: 3rem; }
+
+    .paso {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      background: var(--blanco);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .paso:nth-child(even) .paso-imagen { order: 2; }
+    .paso:nth-child(even) .paso-texto  { order: 1; }
+    @media (max-width: 640px) {
+      .paso { grid-template-columns: 1fr; }
+      .paso:nth-child(even) .paso-imagen { order: 1; }
+      .paso:nth-child(even) .paso-texto  { order: 2; }
+    }
+
+    .paso-imagen {
+      width: 100%;
+      min-height: 240px;
+      background: var(--acento-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════════════════════════
+       🔧 CÓMO PONER LA IMAGEN DE CADA PASO
+       ════════════════════════════════════════════════════
+       1. Sube la captura a img/ en tu GitHub.
+          Ejemplo: img/votacion-paso1.png
+
+       2. Sustituye <span class="placeholder"> por:
+          <img src="../img/votacion-paso1.png"
+               alt="Descripción breve"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+
+       Opciones de style:
+         · Captura MakeCode completa (recomendado):
+             style="width:90%; object-fit:contain; padding:1rem;"
+         · Imagen que ocupa todo el recuadro:
+             style="width:100%; height:100%; object-fit:cover;"
+       ════════════════════════════════════════════════════ */
+
+    .paso-imagen img { width: 100%; height: 100%; display: block; }
+    .paso-imagen .placeholder { font-size: 4.5rem; opacity: 0.3; }
+
+    .paso-texto { padding: 1.75rem 2rem; }
+    .paso-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--acento);
+      color: var(--blanco);
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    /* Números azules para pasos emisora */
+    .paso-emisora .paso-num   { background: var(--azul); }
+    .paso-emisora .paso-imagen { background: #e0eaff; }
+    /* Números morados para pasos receptora */
+    .paso-receptora .paso-num  { background: #9b59d4; }
+    .paso-receptora .paso-imagen { background: #ede8ff; }
+
+    .paso-texto h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .paso-texto p  { font-size: 0.92rem; color: var(--gris); line-height: 1.65; }
+    .nota {
+      margin-top: 0.75rem;
+      background: var(--acento-bg);
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--acento-txt);
+    }
+    .nota-azul   { background: #e0eaff; color: #1a3a8a; }
+    .nota-morada { background: #ede8ff; color: #4a1080; }
+    .nota-warn   { background: #fff3d6; color: #7a4a00; }
+
+    /* ── IDEAS ── */
+    .ideas-box {
+      background: var(--amarillo);
+      border-radius: 20px;
+      padding: 2rem 2rem 2rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .ideas-box h2 { font-size: 1.15rem; font-weight: 800; color: #3a2a00; margin-bottom: 1rem; }
+    .ideas-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .ideas-box li {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #3a2a00;
+      line-height: 1.6;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .ideas-box li::before { content: '→'; position: absolute; left: 0; font-weight: 800; color: #7a4a00; }
+
+    /* ── CTA FINAL — DOS BOTONES (emisora + receptora) ── */
+    .cta-proyecto {
+      background: var(--negro);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .cta-proyecto h2 { color: var(--blanco); font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .cta-proyecto p  { color: rgba(255,255,255,0.55); font-size: 0.95rem; margin-bottom: 1.75rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-emisora {
+      background: var(--azul);
+      color: var(--blanco);
+      font-weight: 800;
+      padding: 0.85rem 1.75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+    .btn-emisora:hover { opacity: 0.85; }
+    .btn-receptora {
+      background: #9b59d4;
+      color: var(--blanco);
+      font-weight: 800;
+      padding: 0.85rem 1.75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+    .btn-receptora:hover { opacity: 0.85; }
+    .btn-volver {
+      border: 2px solid rgba(255,255,255,0.25);
+      color: var(--blanco);
+      font-weight: 700;
+      padding: 0.85rem 1.75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .btn-volver:hover { border-color: rgba(255,255,255,0.6); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--negro); text-align: center; padding: 2rem; font-size: 0.85rem; color: #555; }
+    footer a { color: var(--teal); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav>
+    <a href="../index.html" class="logo">micro<span>bital</span></a>
+    <a href="https://instagram.com/microbital" target="_blank" class="ig-btn">@microbital</a>
+  </nav>
+
+  <!-- ========== CABECERA ========== -->
+  <header class="proyecto-header">
+    <div class="header-inner">
+      <p class="breadcrumb"><a href="../index.html">microbital</a> › Proyectos › Clase</p>
+      <span class="nivel-pill">Clase</span>
+      <h1>Votación a distancia</h1>
+      <p class="descripcion">Un programa con dos micro:bit — emisora y receptora — que recoge y contabiliza las votaciones de tu clase de forma secreta e instantánea.</p>
+      <div class="meta-chips">
+        <span class="chip">📡 Radio micro:bit</span>
+        <span class="chip">🧩 MakeCode bloques</span>
+        <span class="chip">⏱ 45–60 min</span>
+        <span class="chip">🔢 Mínimo 2 micro:bit</span>
+        <span class="chip">📅 Abr 2025</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== CONTENIDO ========== -->
+  <main class="contenido">
+
+    <!-- RESUMEN -->
+    <div class="resumen-box">
+      <strong>¿Qué vamos a hacer?</strong>
+      Un programa que recoge y contabiliza las votaciones de la clase en una tarjeta receptora. Cada alumno o alumna vota pulsando el botón A o B en su micro:bit emisora, y el docente consulta los resultados en su micro:bit receptora al instante.
+    </div>
+
+    <!-- COMPONENTES + BENEFICIOS -->
+    <div class="info-grid">
+      <div class="info-box">
+        <h2>🧰 Componentes necesarios</h2>
+        <ul>
+          <li>Al menos 2 placas micro:bit (una receptora para el docente + emisoras para el alumnado)</li>
+          <li>Pantalla de LED (incorporada)</li>
+          <li>Antena de radio (incorporada)</li>
+          <li>Cable USB y MakeCode</li>
+        </ul>
+      </div>
+      <div class="info-box aporta-box">
+        <h2>🏫 ¿Qué aporta al aula?</h2>
+        <ul>
+          <li>Fomenta la toma de decisiones democrática</li>
+          <li>El voto es secreto: todo el mundo se atreve a opinar</li>
+          <li>Feedback inmediato para el docente</li>
+          <li>Integra la tecnología con un propósito real en clase</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PASO A PASO -->
+    <h2 class="seccion-titulo">Paso a paso</h2>
+    <div class="pasos">
+
+      <!-- PASO COMÚN -->
+      <div class="parte-label parte-comun"><span>📋 Común a todas las placas</span></div>
+
+      <!-- PASO 1 -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/votacion-paso1.png"
+               alt="Bloque Al iniciar con icono y radio establecer grupo 1"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">📻</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">1</span>
+          <h3>Configura "Al iniciar" en todas las placas</h3>
+          <p>En <strong>todas las micro:bit</strong> (emisoras y receptora), dentro del bloque <strong>"Al iniciar"</strong> añade dos cosas: un <strong>"mostrar ícono"</strong> (categoría Básico) para confirmar que la programación se ha cargado, y el bloque <strong>"radio establecer grupo 1"</strong> (categoría Radio).</p>
+          <div class="nota">💡 Es fundamental que todas las placas estén en el mismo grupo de radio. Si una emisora está en el grupo 7 y la receptora en el grupo 1, no se recibirán los votos. ¡Es como estar en pisos distintos de un edificio!</div>
+        </div>
+      </div>
+
+      <!-- EMISORA -->
+      <div class="parte-label parte-emisora"><span>📤 Tarjeta emisora (alumnado)</span></div>
+
+      <!-- PASO 2 -->
+      <div class="paso paso-emisora">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/votacion-paso2.png"
+               alt="Variable voto_emitido en MakeCode"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🔢</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">2</span>
+          <h3>Crea la variable "voto_emitido"</h3>
+          <p>Ve a <strong>Variables → Crear una variable...</strong> y nómbrala <strong>voto_emitido</strong>. Después, dentro de <strong>"Al iniciar"</strong>, añade el bloque <strong>"fijar voto_emitido a 0"</strong>. Esto indica que la placa todavía no ha votado.</p>
+          <div class="nota nota-azul">⚠️ Si el alumnado pulsa el botón RESET de la parte trasera de la placa, el contador se reinicia y podrá votar otra vez.</div>
+        </div>
+      </div>
+
+      <!-- PASO 3 -->
+      <div class="paso paso-emisora">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/votacion-paso3.png"
+               alt="Bloques Si-Si no para botón A y botón B"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🔘</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">3</span>
+          <h3>Añade los bloques de botón A y botón B</h3>
+          <p>Desde <strong>Entrada</strong>, arrastra dos bloques <strong>"al presionarse el botón A"</strong> y <strong>"al presionarse el botón B"</strong>. Dentro de cada uno, añade una estructura <strong>"Si – Si no"</strong> (categoría Lógica). Esta estructura controlará si la placa ya ha votado o no.</p>
+          <div class="nota nota-azul">💡 Botón A = Opción A · Botón B = Opción B. ¡Así de sencillo para el alumnado!</div>
+        </div>
+      </div>
+
+      <!-- PASO 4 -->
+      <div class="paso paso-emisora">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/votacion-paso4.png"
+               alt="Programación completa de los botones emisora"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">✅</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">4</span>
+          <h3>Completa la lógica del voto (emisora)</h3>
+          <p>Dentro del <strong>"Si"</strong>, añade la condición <strong>voto_emitido = 0</strong> (el bloque "=" está en Lógica). Si es verdad:</p>
+          <p style="margin-top:0.5rem;">→ <strong>radio enviar cadena "A"</strong> (o "B" para el botón B)<br>
+          → <strong>fijar voto_emitido a 1</strong><br>
+          → <strong>mostrar cadena "A"</strong> (o "B")</p>
+          <p style="margin-top:0.5rem;">Dentro del <strong>"Si no"</strong> (ya ha votado): <strong>mostrar ícono X</strong>.</p>
+          <div class="nota nota-warn">✔ ¡La tarjeta emisora ya está lista! Descárgala en cada micro:bit del alumnado.</div>
+        </div>
+      </div>
+
+      <!-- RECEPTORA -->
+      <div class="parte-label parte-receptora"><span>📥 Tarjeta receptora (docente)</span></div>
+
+      <!-- PASO 5 -->
+      <div class="paso paso-receptora">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/votacion-paso5.png"
+               alt="Bloque Al iniciar de la receptora con Total_A y Total_B"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">📊</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">5</span>
+          <h3>Configura "Al iniciar" en la receptora</h3>
+          <p>Abre un <strong>nuevo proyecto</strong> en MakeCode para la placa receptora. En <strong>"Al iniciar"</strong>, incluye el icono de confirmación y el bloque <strong>"radio establecer grupo 1"</strong> (el mismo número que en las emisoras).</p>
+          <p style="margin-top:0.5rem;">Crea además dos variables: <strong>Total_A</strong> y <strong>Total_B</strong>, y fíjalas a 0 dentro de "Al iniciar".</p>
+          <div class="nota nota-morada">💡 Esta placa solo la programa y usa el docente. No hace falta descargarla en las del alumnado.</div>
+        </div>
+      </div>
+
+      <!-- PASO 6 -->
+      <div class="paso paso-receptora">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/votacion-paso6.png"
+               alt="Bloque Al recibir radio con Si-Si no, Si"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">📡</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">6</span>
+          <h3>Programa la recepción del voto</h3>
+          <p>En la categoría <strong>Radio</strong>, busca el bloque <strong>"al recibir radio recibirCadena"</strong>. Dentro, añade una estructura <strong>"Si – Si no, si – si no"</strong> (pulsa el + para añadir el tercer hueco).</p>
+          <p style="margin-top:0.5rem;">
+            → Si <strong>recibirCadena = "A"</strong>: cambiar Total_A por 1 + mostrar ícono ✓<br>
+            → Si no, si <strong>recibirCadena = "B"</strong>: cambiar Total_B por 1 + mostrar ícono ✓<br>
+            → Si no: mostrar ícono de error
+          </p>
+          <div class="nota nota-morada">💡 El tercer hueco "si no" captura cualquier mensaje inesperado, por si hay errores de transmisión.</div>
+        </div>
+      </div>
+
+      <!-- PASO 7 -->
+      <div class="paso paso-receptora">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/votacion-paso7.png"
+               alt="Botones A y B de la receptora mostrando totales"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🏁</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">7</span>
+          <h3>Consulta y reinicia los resultados</h3>
+          <p>Programa los botones de la placa receptora:</p>
+          <p style="margin-top:0.5rem;">
+            → <strong>Botón A</strong>: mostrar cadena <em>"Total A: " + Total_A</em><br>
+            → <strong>Botón B</strong>: mostrar cadena <em>"Total B: " + Total_B</em><br>
+            → <strong>Botón A+B</strong>: mostrar "Reinicio Votacion" + fijar Total_A a 0 + fijar Total_B a 0
+          </p>
+          <div class="nota nota-morada">✔ ¡Listo! Con A+B reincias el contador para empezar una nueva votación sin necesidad de reprogramar nada.</div>
+        </div>
+      </div>
+
+    </div><!-- fin .pasos -->
+
+    <!-- IDEAS -->
+    <div class="ideas-box">
+      <h2>🚀 Ideas para usar en clase</h2>
+      <ul>
+        <li>Úsala al final de la hora como salida de ticket: <em>"¿Has entendido la clase de hoy?"</em> A = Sí, B = No. Feedback inmediato sin que nadie se sienta señalado.</li>
+        <li>Si solo tienes una micro:bit para el alumnado, quita el bloque "si/si no" de la emisora y ponla en la puerta de clase para votar al salir a modo de autoevaluación.</li>
+        <li>Preguntas de ejemplo: <em>"¿Necesitas una explicación extra?"</em> · <em>"¿Te ha resultado útil la clase?"</em> · <em>"¿Tienes los deberes listos?"</em></li>
+        <li>Si necesitas una <strong>opción C</strong>, prográmala en el botón táctil del logotipo: en Entradas, busca <strong>"al pulsar el logotipo"</strong> y añade la opción también en la receptora dentro de "al recibir radio recibirCadena".</li>
+      </ul>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div class="cta-proyecto">
+      <h2>¿Listo para programarlo? 🗳️</h2>
+      <p>Dos proyectos distintos: uno para las placas emisoras del alumnado y otro para tu placa receptora.</p>
+      <div class="cta-btns">
+        <!-- 🔧 Sustituye los href por los enlaces reales a MakeCode cuando los tengas -->
+        <a href="https://makecode.microbit.org/S77058-23896-26175-96953" class="btn-emisora">Tarjeta emisora →</a>
+        <a href="https://makecode.microbit.org/S97443-05999-50014-58202" class="btn-receptora">Tarjeta receptora →</a>
+        <a href="../index.html" class="btn-volver">← Volver a proyectos</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p>microbital · <a href="https://instagram.com/microbital" target="_blank">@microbital</a> · Hecho con ♥ y micro:bit</p>
+  </footer>
+
+</body>
+</html>
