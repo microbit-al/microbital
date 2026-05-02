@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atrapa la bola — microbital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --negro:    #111214;
+      --blanco:   #f8f7f3;
+      --teal:     #0fc4a7;
+      --amarillo: #ffc847;
+      --coral:    #ff5e41;
+      --morado:   #CE9EF7;
+      --azul:     #3a7bfd;
+      --fondo:    #f2f0eb;
+      --gris:     #888680;
+      --acento:     #CE9EF7;
+      --acento-bg:  #ede8ff;
+      --acento-txt: #491C57;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--fondo);
+      color: var(--negro);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: var(--negro);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; color: var(--teal); text-decoration: none; }
+    .logo span { color: var(--blanco); }
+    nav a.ig-btn {
+      background: var(--teal);
+      color: var(--negro);
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    nav a.ig-btn:hover { opacity: 0.85; }
+
+    /* ── CABECERA ── */
+    .proyecto-header {
+      background: linear-gradient(135deg, #1a0533 0%, #2a0a4a 50%, #0d1a3a 100%);
+      color: var(--blanco);
+      padding: 3.5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .proyecto-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(206,158,247,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .proyecto-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(206,158,247,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+    .breadcrumb { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 1.25rem; }
+    .breadcrumb a { color: var(--morado); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .nivel-pill {
+      display: inline-block;
+      background: var(--acento);
+      color: var(--acento-txt);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+    .proyecto-header h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .proyecto-header .descripcion { font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 600px; margin-bottom: 1.75rem; }
+    .meta-chips { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .chip {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+    }
+
+    /* ── CONTENIDO ── */
+    .contenido { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+
+    /* ── RESUMEN ── */
+    .resumen-box {
+      background: var(--acento-bg);
+      border-left: 4px solid var(--acento);
+      border-radius: 0 12px 12px 0;
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 3rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--acento-txt);
+    }
+    .resumen-box strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; font-weight: 800; }
+
+    /* ── DOS COLUMNAS ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 580px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-box {
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 1.75rem;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .info-box h2 { font-size: 1rem; font-weight: 800; margin-bottom: 1rem; }
+    .info-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .info-box li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .info-box li::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px; height: 20px;
+      background: var(--acento);
+      color: var(--acento-txt);
+      border-radius: 50%;
+      font-size: 0.65rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .aporta-box li::before { background: var(--amarillo); color: #5a3a00; }
+
+    /* ── VARIABLES — bloque especial ── */
+    .variables-box {
+      background: var(--negro);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .variables-box h2 { color: var(--blanco); font-size: 1rem; font-weight: 800; margin-bottom: 1.1rem; }
+    .variables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.75rem;
+    }
+    .var-chip {
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .var-chip strong { display: block; font-size: 1rem; font-weight: 800; margin-bottom: 0.2rem; }
+    .vc1 { background: #2a1a4a; color: var(--morado); }
+    .vc2 { background: #1a2a4a; color: #90c4ff; }
+    .vc3 { background: #0a3a2a; color: var(--teal); }
+    .vc4 { background: #3a2a00; color: var(--amarillo); }
+    .vc5 { background: #3a0a00; color: #ffb09a; }
+
+    /* ── TÍTULO DE SECCIÓN ── */
+    .seccion-titulo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 3px solid var(--acento);
+      display: inline-block;
+    }
+
+    /* ── PASOS ── */
+    .pasos { display: flex; flex-direction: column; gap: 2.5rem; margin-bottom: 3rem; }
+
+    .paso {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      background: var(--blanco);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .paso:nth-child(even) .paso-imagen { order: 2; }
+    .paso:nth-child(even) .paso-texto  { order: 1; }
+    @media (max-width: 640px) {
+      .paso { grid-template-columns: 1fr; }
+      .paso:nth-child(even) .paso-imagen { order: 1; }
+      .paso:nth-child(even) .paso-texto  { order: 2; }
+    }
+
+    .paso-imagen {
+      width: 100%;
+      min-height: 240px;
+      background: var(--acento-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════════════════════════
+       🔧 CÓMO PONER LA IMAGEN DE CADA PASO
+       ════════════════════════════════════════════════════
+       1. Sube la captura a img/ en tu GitHub.
+          Ejemplo: img/bola-paso1.png
+
+       2. Sustituye <span class="placeholder"> por:
+          <img src="../img/bola-paso1.png"
+               alt="Descripción breve del paso"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+
+       Opciones de style:
+         · Captura MakeCode completa (recomendado):
+             style="width:90%; object-fit:contain; padding:1rem;"
+         · Imagen que ocupa todo el recuadro:
+             style="width:100%; height:100%; object-fit:cover;"
+       ════════════════════════════════════════════════════ */
+
+    .paso-imagen img { width: 100%; height: 100%; display: block; }
+    .paso-imagen .placeholder { font-size: 4.5rem; opacity: 0.3; }
+
+    .paso-texto { padding: 1.75rem 2rem; }
+    .paso-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--acento);
+      color: var(--acento-txt);
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .paso-texto h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .paso-texto p  { font-size: 0.92rem; color: var(--gris); line-height: 1.65; }
+    .nota {
+      margin-top: 0.75rem;
+      background: var(--acento-bg);
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--acento-txt);
+    }
+    .nota-verde { background: #d6f5ef; color: #063d32; }
+    .nota-warn  { background: #fff3d6; color: #7a4a00; }
+
+    /* ── PROGRESO DEL JUEGO ── */
+    .progreso-box {
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 3rem;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .progreso-box h2 { font-size: 1rem; font-weight: 800; margin-bottom: 1.1rem; }
+    .progreso-lista { display: flex; flex-direction: column; gap: 0.6rem; }
+    .progreso-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .prog-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      background: var(--acento);
+      color: var(--acento-txt);
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* ── TIPS + IDEAS ── */
+    .extra-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 580px) { .extra-grid { grid-template-columns: 1fr; } }
+
+    .extra-box { border-radius: 16px; padding: 1.75rem; }
+    .extra-box.tips  { background: var(--negro); color: var(--blanco); }
+    .extra-box.ideas { background: var(--amarillo); color: #3a2a00; }
+    .extra-box h2    { font-size: 1rem; font-weight: 800; margin-bottom: 1rem; }
+    .extra-box ul    { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .extra-box li    { font-size: 0.88rem; font-weight: 600; line-height: 1.55; padding-left: 1.2rem; position: relative; }
+    .extra-box li::before { content: '→'; position: absolute; left: 0; font-weight: 800; }
+    .extra-box.tips li { color: rgba(255,255,255,0.8); }
+    .extra-box.tips li::before { color: var(--morado); }
+    .extra-box.ideas li::before { color: #7a4a00; }
+
+    /* ── CÓDIGO ── */
+    .codigo-bloque {
+      background: #1a1230;
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      margin-top: 0.75rem;
+      overflow-x: auto;
+    }
+    .codigo-bloque code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: var(--morado);
+      white-space: pre;
+    }
+
+    /* ── CTA FINAL ── */
+    .cta-proyecto {
+      background: var(--negro);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .cta-proyecto h2 { color: var(--blanco); font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .cta-proyecto p  { color: rgba(255,255,255,0.55); font-size: 0.95rem; margin-bottom: 1.75rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-makecode {
+      background: var(--acento);
+      color: var(--acento-txt);
+      font-weight: 800;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+    .btn-makecode:hover { opacity: 0.85; }
+    .btn-volver {
+      border: 2px solid rgba(255,255,255,0.25);
+      color: var(--blanco);
+      font-weight: 700;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    .btn-volver:hover { border-color: rgba(255,255,255,0.6); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--negro); text-align: center; padding: 2rem; font-size: 0.85rem; color: #555; }
+    footer a { color: var(--teal); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav>
+    <a href="../index.html" class="logo">micro<span>bital</span></a>
+    <a href="https://instagram.com/microbital" target="_blank" class="ig-btn">@microbital</a>
+  </nav>
+
+  <!-- ========== CABECERA ========== -->
+  <header class="proyecto-header">
+    <div class="header-inner">
+      <p class="breadcrumb"><a href="../index.html">microbital</a> › Proyectos › Todos los niveles</p>
+      <span class="nivel-pill">Todos los niveles</span>
+      <h1>Atrapa la bola 🎮</h1>
+      <p class="descripcion">Un mini juego programado en MakeCode donde mueves un jugador con los botones A y B para atrapar una bola que cae desde arriba. Lógica, coordinación y diversión para cualquier aula.</p>
+      <div class="meta-chips">
+        <span class="chip">🧩 MakeCode bloques</span>
+        <span class="chip">⏱ 60 min</span>
+        <span class="chip">🎮 Especial día del centro</span>
+        <span class="chip">📅 Mayo 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== CONTENIDO ========== -->
+  <main class="contenido">
+
+    <!-- RESUMEN -->
+    <div class="resumen-box">
+      <strong>¿Qué vamos a hacer?</strong>
+      Un mini juego tipo "Atrapa la bola" para programar la micro:bit de una manera lúdica. La bola cae desde la fila superior en una posición aleatoria y el jugador, situado en la fila inferior, debe moverse con los botones A y B para atraparla antes de que llegue al suelo. Cada bola atrapada suma un punto; cada bola perdida resta una vida.
+    </div>
+
+    <!-- COMPONENTES + BENEFICIOS -->
+    <div class="info-grid">
+      <div class="info-box">
+        <h2>🧰 Se necesita...</h2>
+        <ul>
+          <li>1 placa micro:bit (v1 o v2)</li>
+          <li>Pantalla de LED (incorporada)</li>
+          <li>Sonidos / zumbador (opcional, v2)</li>
+          <li>Portapilas (opcional, para jugar en cualquier sitio)</li>
+          <li>Ordenador con conexión a internet y acceso a MakeCode para programarla</li>
+        </ul>
+      </div>
+      <div class="info-box aporta-box">
+        <h2>🏫 ¿Qué aporta al aula?</h2>
+        <ul>
+          <li>Actividad <strong>rápida, motivadora y muy accesible</strong> para iniciarse en la programación por bloques</li>
+          <li>Trabaja la <strong>lógica, la coordinación</strong> y la toma de decisiones</li>
+          <li>Introduce variables y condicionales de forma <strong>visual e intuitiva</strong></li>
+          <li>Funciona en el simulador: no hace falta placa física</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- VARIABLES -->
+    <div class="variables-box">
+      <h2>📦 Variables que vamos a usar</h2>
+      <div class="variables-grid">
+        <div class="var-chip vc1">
+          <strong>bolaX</strong>
+          Columna donde está la bola (0–4)
+        </div>
+        <div class="var-chip vc2">
+          <strong>bolaY</strong>
+          Fila donde está la bola (0–4). Va sumando 1 para que caiga.
+        </div>
+        <div class="var-chip vc3">
+          <strong>jugador</strong>
+          Columna del jugador en la fila 4 (abajo)
+        </div>
+        <div class="var-chip vc4">
+          <strong>puntos</strong>
+          +1 por cada bola atrapada
+        </div>
+        <div class="var-chip vc5">
+          <strong>vidas</strong>
+          Empieza en 3. -1 por cada bola perdida.
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO A PASO -->
+    <h2 class="seccion-titulo">Paso a paso</h2>
+    <div class="pasos">
+
+      <!-- PASO 1 -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/bola-paso1.png"
+               alt="Variables creadas en MakeCode"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">📦</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">1</span>
+          <h3>Crea las variables</h3>
+          <p>Ve a <strong>Variables → Crear una variable...</strong> y crea las cinco variables del juego: <strong>bolaX</strong>, <strong>bolaY</strong>, <strong>jugador</strong>, <strong>puntos</strong> y <strong>vidas</strong>. No hace falta darles valor todavía, eso lo haremos en el siguiente paso.</p>
+          <div class="nota">💡 La pantalla de la micro:bit es una matriz de 5×5 LEDs. Las columnas son el eje X (0 a 4, de izquierda a derecha) y las filas son el eje Y (0 a 4, de arriba a abajo).</div>
+        </div>
+      </div>
+
+      <!-- PASO 2 -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/bola-paso2.png"
+               alt="Diagrama de ejes X e Y de la pantalla micro:bit"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🗺️</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">2</span>
+          <h3>Entiende el sistema de coordenadas</h3>
+          <p>Usaremos el bloque <strong>"graficar"</strong> (categoría LED) para encender un LED concreto. Necesita dos valores: <strong>x</strong> (columna, de 0 a 4) e <strong>y</strong> (fila, de 0 a 4).</p>
+          <p style="margin-top:0.5rem;">El jugador siempre estará en la <strong>fila y=4</strong> (la de abajo). La bola empieza en <strong>y=0</strong> (la de arriba) y va bajando.</p>
+          <div class="nota">💡 El origen (0,0) está en la esquina superior izquierda. Y aumenta hacia abajo, X hacia la derecha.</div>
+        </div>
+      </div>
+
+      <!-- PASO 3 -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/bola-paso3.png"
+               alt="Bloque Al iniciar con valores de inicio del juego"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🚀</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">3</span>
+          <h3>Prepara el inicio del juego</h3>
+          <p>Dentro de <strong>"Al iniciar"</strong>, configura los valores de partida:</p>
+          <p style="margin-top:0.5rem;">
+            → <strong>jugador = 2</strong> (centro de la fila inferior)<br>
+            → <strong>bolaX = número al azar de 0 a 4</strong><br>
+            → <strong>bolaY = 0</strong> (fila superior)<br>
+            → <strong>vidas = 3</strong><br>
+            → <strong>mostrar cadena "GO!"</strong> para avisar al jugador
+          </p>
+          <div class="nota">💡 El bloque "escoger al azar de 0 a 4" está en la categoría Matemática. Hace que cada partida sea diferente.</div>
+        </div>
+      </div>
+
+      <!-- PASO 4 -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/bola-paso4.png"
+               alt="Bloques botón A y B para mover al jugador"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🕹️</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">4</span>
+          <h3>Mueve al jugador con los botones</h3>
+          <p>Añade dos bloques <strong>"al presionarse el botón"</strong> (Entrada):</p>
+          <p style="margin-top:0.5rem;">
+            → <strong>Botón A</strong>: si jugador &gt; 0 → cambiar jugador por <strong>-1</strong> (izquierda)<br>
+            → <strong>Botón B</strong>: si jugador &lt; 4 → cambiar jugador por <strong>+1</strong> (derecha)
+          </p>
+          <div class="nota">💡 Las condiciones jugador &gt; 0 y jugador &lt; 4 evitan que el jugador se salga de la pantalla.</div>
+          <div class="nota nota-verde" style="margin-top:0.5rem;">✔ ¡Prueba ya! A partir de este paso el jugador ya se mueve en el simulador.</div>
+        </div>
+      </div>
+
+      <!-- PASO 5 -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/bola-paso5.png"
+               alt="Bucle para siempre con graficar bola y jugador"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🔁</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">5</span>
+          <h3>Anima la pantalla en el bucle principal</h3>
+          <p>Dentro del bloque <strong>"para siempre"</strong>, añade en orden:</p>
+          <p style="margin-top:0.5rem;">
+            1. <strong>borrar la pantalla</strong><br>
+            2. <strong>graficar x: jugador, y: 4</strong> (dibuja al jugador)<br>
+            3. <strong>graficar x: bolaX, y: bolaY</strong> (dibuja la bola)<br>
+            4. <strong>pausa 500 ms</strong> (velocidad del juego)<br>
+            5. <strong>cambiar bolaY por 1</strong> (la bola cae una fila)
+          </p>
+          <div class="nota nota-verde">✔ Con este paso ya se mueven bola y jugador. ¡Pruébalo en el simulador!</div>
+        </div>
+      </div>
+
+      <!-- PASO 6 -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/bola-paso6.png"
+               alt="Bloque Si bolaY mayor que 4 con condicional de atrapar"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">🎯</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">6</span>
+          <h3>Detecta si la bola es atrapada o perdida</h3>
+          <p>Después del bloque "cambiar bolaY por 1", añade una condición <strong>"si bolaY &gt; 4"</strong>. Dentro:</p>
+          <p style="margin-top:0.5rem;">
+            → <strong>Si bolaX = jugador</strong> (bola atrapada):<br>
+            &nbsp;&nbsp;&nbsp;cambiar puntos por 1 + reproducir tono agudo<br>
+            → <strong>Si no</strong> (bola perdida):<br>
+            &nbsp;&nbsp;&nbsp;cambiar vidas por -1 + reproducir tono grave<br><br>
+            → Fuera del si/si no: <strong>fijar bolaX al azar 0–4</strong> y <strong>fijar bolaY a 0</strong> para lanzar la siguiente bola.
+          </p>
+          <div class="nota nota-verde">✔ Ya suma puntos y suena. ¡El juego está casi listo!</div>
+        </div>
+      </div>
+
+      <!-- PASO 7 -->
+      <div class="paso">
+        <div class="paso-imagen">
+          <!-- 🔧 Sustituye por:
+          <img src="../img/bola-paso7.png"
+               alt="Bloque si vidas menor o igual a 0 con pantalla de fin"
+               style="width:90%; object-fit:contain; padding:1rem;" />
+          -->
+          <span class="placeholder">💀</span>
+        </div>
+        <div class="paso-texto">
+          <span class="paso-num">7</span>
+          <h3>Programa el fin del juego</h3>
+          <p>Justo después del bloque <strong>"fijar bolaY a 0"</strong> (dentro del "si bolaY &gt; 4"), añade:</p>
+          <p style="margin-top:0.5rem;">
+            → <strong>Si vidas ≤ 0</strong>:<br>
+            &nbsp;&nbsp;&nbsp;mostrar ícono calavera<br>
+            &nbsp;&nbsp;&nbsp;mostrar cadena <strong>"FIN"</strong><br>
+            &nbsp;&nbsp;&nbsp;mostrar número puntos<br>
+            &nbsp;&nbsp;&nbsp;pausa 2000 ms<br>
+            &nbsp;&nbsp;&nbsp;mostrar cadena <strong>"GO AGAIN!"</strong><br>
+            &nbsp;&nbsp;&nbsp;fijar puntos a 0 · fijar vidas a 3
+          </p>
+          <div class="nota nota-verde">✔ ¡El juego está completo! El jugador puede repetir partidas sin reprogramar.</div>
+        </div>
+      </div>
+
+    </div><!-- fin .pasos -->
+
+    <!-- PROGRESO DEL JUEGO -->
+    <div class="progreso-box">
+      <h2>📈 Puedes parar y probar después de cada paso</h2>
+      <div class="progreso-lista">
+        <div class="progreso-item"><span class="prog-num">4</span> El jugador ya se mueve con los botones A y B</div>
+        <div class="progreso-item"><span class="prog-num">5</span> Bola y jugador se mueven y se ven en pantalla</div>
+        <div class="progreso-item"><span class="prog-num">6</span> Se suman puntos y se pierden vidas. ¡Ya suena!</div>
+        <div class="progreso-item"><span class="prog-num">7</span> Pantalla de fin y reinicio automático. ¡Juego completo!</div>
+      </div>
+    </div>
+
+    <!-- TIPS + IDEAS -->
+    <div class="extra-grid">
+      <div class="extra-box tips">
+        <h2>💡 Tips</h2>
+        <ul>
+          <li>Para en cada paso y prueba en el simulador antes de continuar. Así es más fácil detectar errores.</li>
+          <li>Se puede jugar directamente en el simulador de MakeCode sin necesidad de placa física.</li>
+          <li>Con un portapilas acoplado a la micro:bit, puedes jugar en cualquier sitio del centro.</li>
+        </ul>
+      </div>
+      <div class="extra-box ideas">
+        <h2>🚀 Idea: aumenta la dificultad</h2>
+        <ul>
+          <li>Crea una variable llamada <strong>velocidad</strong> y dale valor 500 en "Al iniciar".</li>
+          <li>Sustituye el valor fijo de "pausa 500 ms" por la variable <strong>velocidad</strong>.</li>
+          <li>Antes del bloque "si vidas ≤ 0", añade <strong>"cambiar velocidad por -50"</strong>.</li>
+          <li>Así, ¡la bola cae más rápido con cada nueva bola que aparece!</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div class="cta-proyecto">
+      <h2>¿Listo para jugar? 🎮</h2>
+      <p>Abre el proyecto en MakeCode, pruébalo en el simulador y descárgalo a tu micro:bit.</p>
+      <div class="cta-btns">
+        <!-- 🔧 Sustituye el href por el enlace real a MakeCode cuando lo tengas -->
+        <a href="#" class="btn-makecode">Abrir en MakeCode →</a>
+        <a href="../index.html" class="btn-volver">← Volver a proyectos</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p>microbital · <a href="https://instagram.com/microbital" target="_blank">@microbital</a> · Hecho con ♥ y micro:bit</p>
+  </footer>
+
+</body>
+</html>
